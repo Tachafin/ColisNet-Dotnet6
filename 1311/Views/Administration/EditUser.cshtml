@@ -5,103 +5,102 @@
 <h1>
     Administration
 </h1>
-<form  asp-action="edituser" asp-controller="Administration" method="post">
-<div class="container">
+<form asp-action="edituser" asp-controller="Administration" method="post">
+    <div class="container">
 
 
-    <div class="row">
-        <div class="col">
-            <div class="card shadow @*p-3*@ mb-5 bg-white rounded">
-                <div class="card-header">
-                    <span class="card-title">
-                        Information Personelle de <strong class="text-danger"> @Model.UserName </strong>
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow @*p-3*@ mb-5 bg-white rounded">
+                    <div class="card-header">
+                        <span class="card-title">
+                            Information Personelle de <strong class="text-danger"> @Model.UserName </strong>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
 
-                                <div class="form-group">
-                                    <label asp-for="FirstName"></label>
-                                    <input type="text" class="form-control" asp-for="FirstName" />
+                                    <div class="form-group">
+                                        <label asp-for="FirstName"></label>
+                                        <input type="text" class="form-control" asp-for="FirstName" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="LastName"></label>
+                                        <input type="text" class="form-control" asp-for="LastName" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber"></label>
+                                        <input type="text" class="form-control" asp-for="PhoneNumber" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="LastName"></label>
-                                    <input type="text" class="form-control" asp-for="LastName" />
+
+
+                            <div class="row">
+                                <div class="col">
+
+                                    <div class="form-group">
+                                        <label asp-for="Email"></label>
+                                        <input type="text" class="form-control" asp-for="Email" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="Boutique.Ville"></label>
+                                        <select asp-for="Boutique.VilleId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                            @foreach (var item in ViewBag.ListVille)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="Adresse"></label>
+                                        <input type="text" class="form-control" asp-for="Adresse" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="PhoneNumber"></label>
-                                    <input type="text" class="form-control" asp-for="PhoneNumber" />
+
+                            <div class="row">
+                                <div class="col">
+
+                                    <div class="form-group">
+                                        <label asp-for="Boutique.Name"> Name Boutique</label>
+                                        <input type="text" class="form-control" asp-for="Boutique.Name" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="Boutique.Bank.Name">Name Bank</label>
+                                        <input type="text" class="form-control" asp-for="Boutique.Bank.Name" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label asp-for="Boutique.Bank.Rib"></label>
+                                        <input type="text" class="form-control" asp-for="Boutique.Bank.Rib" />
+                                    </div>
                                 </div>
                             </div>
+                            <button class="btn btn-success" type="submit">
+                                Submit
+                            </button>
+
                         </div>
-
-
-                        <div class="row">
-                            <div class="col">
-
-                                <div class="form-group">
-                                    <label asp-for="Email"></label>
-                                    <input type="text" class="form-control" asp-for="Email" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Boutique.Ville"></label>
-                                    <select asp-for="Boutique.VilleId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                                        @foreach (var item in ViewBag.ListVille)
-                                        {
-                                            <option value="@item.Id">@item.Name</option>
-                                        }
-
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Adresse"></label>
-                                    <input type="text" class="form-control" asp-for="Adresse" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-
-                                <div class="form-group">
-                                    <label asp-for="Boutique.Name"> Name Boutique</label>
-                                    <input type="text" class="form-control" asp-for="Boutique.Name" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Boutique.Bank.Name">Name Bank</label>
-                                    <input type="text" class="form-control" asp-for="Boutique.Bank.Name" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Boutique.Bank.Rib"></label>
-                                    <input type="text" class="form-control" asp-for="Boutique.Bank.Rib" />
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-success" type="submit">
-                            Submit
-                        </button>
-
                     </div>
                 </div>
             </div>
         </div>
+        <a class="btn btn-dark" asp-action="allusers" asp-controller="administration">Back To Users</a>
     </div>
-
-</div>
 </form>
-<a asp-action="allusers" asp-controller="administration">Back To Usrs</a>
