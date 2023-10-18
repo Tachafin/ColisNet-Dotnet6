@@ -2,6 +2,7 @@ using _1311.Controllers;
 using _1311.Models;
 using _1311.Models.Repository;
 using _1311.Models.Repository.Admin;
+using _1311.Models.Repository.IAccountRepositorys;
 using _1311.Models.Repository.IBonsLivraisonRepositorys;
 using _1311.Models.Repository.IBoutiqueRepositorys;
 using _1311.Models.Repository.IColisRepositorys;
@@ -83,6 +84,7 @@ namespace _1311
             services.AddScoped<IBoutiqueRepositoryy<Boutique>, BoutiqueRepository>();
             services.AddScoped<IFactureRepository<Facture>, FactureRepository>();
             services.AddScoped<IstatistiqueRepository<Colis>, StatistiqueRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
 
             services.AddScoped<CurrentUser>();
             services.AddScoped<UserRepository>();
