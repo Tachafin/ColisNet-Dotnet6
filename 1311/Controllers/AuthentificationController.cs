@@ -12,7 +12,7 @@ namespace _1311.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
 
-        
+
         public AuthentificationController(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager)
         {
@@ -24,7 +24,7 @@ namespace _1311.Controllers
         {
             string CurrentUser = User.Identity.Name;
             var userx = await userManager.FindByNameAsync(CurrentUser);
-           
+
             var userInRoleAdmin = await userManager.IsInRoleAsync(userx, "Admin");
             if (userInRoleAdmin)
             {
@@ -34,14 +34,14 @@ namespace _1311.Controllers
             var userInRoleUser = await userManager.IsInRoleAsync(userx, "User");
             if (userInRoleUser)
             {
-                await signInManager.SignOutAsync(); 
+                await signInManager.SignOutAsync();
                 return RedirectToAction("Client", "Authentification");
             }
-            await signInManager.SignOutAsync(); 
+            await signInManager.SignOutAsync();
             return RedirectToAction("Client", "Authentification");
         }
 
-    
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Admin()
@@ -60,16 +60,13 @@ namespace _1311.Controllers
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
 
-                if(user != null)
+                if (user != null)
                 {
 
-                
-                var result = await signInManager.PasswordSignInAsync(user.UserName, model.Password, isPersistent: true, false);
+                    var result = await signInManager.PasswordSignInAsync(user.UserName, model.Password, isPersistent: true, false);
 
-
-
-                if (result.Succeeded)
-                {
+                    if (result.Succeeded)
+                    {
 
                         var userInRoleLivreur = await userManager.IsInRoleAsync(user, "Livreur");
                         if (userInRoleLivreur)
@@ -77,37 +74,39 @@ namespace _1311.Controllers
                             return RedirectToAction("Dashboard", "Livreur");
                         }
                         var userInRoleAdmin = await userManager.IsInRoleAsync(user, "Admin");
-                    if (userInRoleAdmin)
-                    {
-                        return RedirectToAction("allcolis", "colis");
-                    }
-                    var userinroleBasic = await userManager.IsInRoleAsync(user, "User");
-                    if (userinroleBasic)
-                    {
-                        ViewBag.Error = "Incorrect Login Admin";
-                        return View(model);
-                    }
-                       
-                    else
-                    {
-                        ViewBag.Error = "Incorrect Login";
-                        return View(model);
-                    }
+                        if (userInRoleAdmin)
+                        {
+                            return RedirectToAction("allcolis", "colis");
+                        }
+                        var userinroleBasic = await userManager.IsInRoleAsync(user, "User");
+                        if (userinroleBasic)
+                        {
+                            await signInManager.SignOutAsync();
+                            ViewBag.Error = "Incorrect Login Admin";
+                            return View(model);
+                        }
 
-                }
+                        else
+                        {
+                            await signInManager.SignOutAsync();
+                            ViewBag.Error = "Incorrect Login";
+                            return View(model);
+                        }
+
+                    }
                 }
             }
 
             return View(model);
         }
-   
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Client()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("edit","account");
+                return RedirectToAction("edit", "account");
             }
             return View();
         }
