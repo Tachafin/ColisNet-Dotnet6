@@ -1,0 +1,160 @@
+﻿@model IEnumerable<_1311.Models.Reclamation>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<div class="card shadow @*p-3*@ mb-5 mt-2 bg-white rounded">
+    <div class="card-header bg-white my-2">
+        <h2>  Reclamation <span class="btn btn-outline-primary">@Model.Count()</span> </h2>
+    </div>
+    <div class="card-body">
+
+        <div class="row m-2 mb-4">
+            <div class="col">
+                <button class="btn btn-outline-primary" onclick="red(1,'@null')">
+                    Today Reclamation : @ViewBag.today >
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-primary" onclick="red(2,'@null')">
+                    Today Reclamation Successfuly : @ViewBag.todaygood >
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-primary" onclick="red(3,'@null')">
+                    Today  Reclamation  Bad : @ViewBag.todaybad  >
+
+                </button>
+            </div>
+
+            <div class="col">
+                <button class="btn btn-outline-primary" onclick="red(4,'@null')">
+                    Totale Reclamation : @ViewBag.all >
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <label>USER</label>
+                <div class="d-flex align-items-center">
+                    <select class="form-control " id="s1">
+                        <option value="@null">
+                            Choose a user
+                        </option>
+                        @foreach (var item in ViewBag.Listuser)
+                        {
+                            <option value="@item.Id">
+                                @item.UserName
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="row my-2">
+            <div class="col-3">
+                <button type="submit" class="btn btt mt-1 mb-1 text-white" id="Search">
+                    Search
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="table table-responsive">
+            <table class="table" id="myTable" data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateCreation)
+                        </th>
+                        <th>
+                            Resolu
+                        </th>
+                        <th>
+                            USER
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateCreation)
+                            </td>
+                            <td>
+                                @{
+                                    if (item.Statut)
+                                    {
+                                        <div class=" badge badge-success">Resolu</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge badge-danger">Non resolu</div>
+
+                                    }
+
+                                }
+                            </td>
+                            <td>
+                                <span class="badge badge-info display-2"> @Html.DisplayFor(modelItem => item.User.UserName)</span>
+                            </td>
+
+                            <td>
+
+                                <a class="btn btn-outline-primary" asp-action="edit" asp-route-id="@item.Id">Details</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>.
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+@*@section DtColis{*@
+<script>
+
+    $(document).ready(function () {
+
+        $('#myTable').DataTable();
+    });
+
+    function red(a, b) {
+
+        window.location.href = "/Admin/Reclamation?nb=" + encodeURIComponent(a) + "&userid=" + encodeURIComponent(b);
+
+    }
+    document.getElementById("Search").addEventListener("click", function () {
+        let b = document.getElementById("s1").value;
+
+        red(4, b);
+    });
+</script>

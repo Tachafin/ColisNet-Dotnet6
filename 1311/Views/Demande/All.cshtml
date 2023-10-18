@@ -1,0 +1,132 @@
+﻿@model AllDemandeViewModel
+
+    @{
+    ViewData["Title"] = "All Demande";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+
+}
+
+<div class="card mt-3">
+    <div class="card-header bg-white mt-3 mb-3">
+        <h2 >Demande Ramassage</h2>
+    </div>
+    <div class="card-body">
+        <div class="row m-2 mb-4">
+            <div class="col">
+                <button class="btn btn-outline-primary" onclick="red(1)">
+                    Today Demande : @Model.today >
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-primary" onclick="red(2)">
+                    Today Demande Successfuly : @Model.todaygood >
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-primary" onclick="red(3)">
+                    Today  Demande  Bad : @Model.todaybad  >
+
+                </button>
+            </div>
+
+            <div class="col">
+                <button class="btn btn-outline-primary" onclick="red(4)">
+                    Totale Demande : @Model.all >
+                </button>
+            </div>
+        </div>
+
+        <div class="table table-responsive">    
+            <table id="myTable" class="table table-striped  " data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+                        <th>
+                            Resolu
+                        </th>
+                        <th>
+                            USER
+                        </th>
+                        <th>
+                            Livreur
+                        </th>
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Demandess)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nom)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateCreation)
+                            </td>
+                            <td>
+                                @if (item.Resolu)
+                                {
+                                    <span class="badge badge-success">GOOD</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">BAD</span>
+                                }
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Livreur.User.UserName)
+                            </td>
+
+
+                            <td>
+                                <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id">Actions</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+<script>
+
+             $(document).ready( function () {
+
+        $('#myTable').DataTable();
+    } );
+
+        function red(a) {
+
+                 window.location.href = "/Admin/Demande?etat=" + encodeURIComponent(a) ;
+
+        }
+</script>
+
+
+

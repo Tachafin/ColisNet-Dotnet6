@@ -1,0 +1,220 @@
+﻿@{
+    Layout = null;
+}
+@model Facture
+
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <div id="element-to-print" class="element-to-print"   >
+ 
+
+           
+ 
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1> GO COLIS</h1>
+            </div>
+            <DIV class="col m-3">
+                <h4> Client : @Model.User.Boutique.Name </h4>
+                <h4> Nom de la banque : @Model.User.Boutique.Bank.Name </h4>
+                <h4> Rib :@Model.User.Boutique.Bank.Rib </h4>
+                <h4>Date : @Model.DateCreation</h4>
+                <h4>Statut : @Model.Statut</h4>
+            </DIV>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+               <h1> Relevé Détaillé</h1>
+             <h4>  Relevé N° : @Model.Nom </h4>
+            </div>
+
+        </div>
+    </div>
+    <hr />
+<div class="container">
+<table class="table table-bordered">
+    <thead>
+<tr>
+    <td>
+        id
+    </td>
+    <td>
+        Numero Commande
+    </td>
+    <td>
+       Date Creation 
+    </td>
+    <td>
+        Statut
+    </td>
+    <td>
+        Prix
+    </td>
+    <td>
+        Ville
+    </td>
+    <td>
+        Frais
+    </td>
+</tr>
+    </thead>
+    <tbody>
+         @foreach (var item in Model.Colis)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Numero_Colis)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_creation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Statut)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prix)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.Ville.Name)
+                        </td>
+                        <td>
+                            @if(item.Client.Ville.Id == item.User.Boutique.Ville.Id)
+                            {
+                                <strong>20</strong>
+                            }
+                            else{
+                                <strong>45</strong>
+                            }
+                        </td>
+                        
+                    </tr>
+                }
+           
+    </tbody>
+</table>
+</div>
+<br/>
+<div class="container">
+<div class="row">
+<div class="col">
+    </div>
+    <div class="col">
+    </div>
+    <div class="col">
+    
+<table class="table table-bordered">
+    <thead>
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Total Brut
+            </td>
+            <td>
+               @Model.Total
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Total Frais
+            </td>
+            <td>
+               @Model.Frais
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Total Net
+            </td>
+            <td>
+               @Model.Net
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="~/lib/jquery/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+        $(document).ready(function($)
+        {
+
+     
+           
+
+            var element = document.getElementById('element-to-print');
+    var opt = {
+      margin:       0,
+      filename:     'myfile.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 1 },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+          html2pdf().set(opt).from(element).save();
+          html2pdf(element, opt);
+       
+          window.open('','_parent',''); 
+          window.close();
+        });
+
+</script>
+
+
+
+
+<button id="btn_print" class="btn btn-dark btn_print">
+    telecharger pdf
+</button>

@@ -1,0 +1,104 @@
+﻿@model _1311.Models.Colis
+
+    @{
+    ViewData["Title"] = "create";
+
+    Layout = null;
+}
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@if (!string.IsNullOrEmpty(ViewBag.error))
+{
+    <div class="row">
+        <h2 class=" alert-danger">
+            @ViewBag.error
+        </h2>
+    </div>
+
+}
+<form method="post" id="frm">
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Client.NomComplet"></label>
+                <input id="Name" type="text" class="form-control" asp-for="Client.NomComplet" />
+              <span class="small text-danger" asp-validation-for="Client.NomComplet"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Client.Telephone"></label>
+                <input id="telephone" type="text" class="form-control" asp-for="Client.Telephone" />
+                <span class="small text-danger" asp-validation-for="Client.Telephone"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Client.Ville"></label>
+                <select id="ville" asp-for="Client.VilleId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    @foreach (var item in ViewBag.ListVille)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+
+
+                </select>
+              
+
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Client.adresse"></label>
+                <input id="adresse" type="text" class="form-control" asp-for="Client.adresse" />
+                <span class="small text-danger" asp-validation-for="Client.adresse"></span>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+
+
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Prix"></label>
+                <input type="text" class="form-control" asp-for="Prix" />
+                <span class="small text-danger" asp-validation-for="Prix"></span>
+
+            </div>
+
+        </div>
+        <div class="col">
+            <div class="form-group pl-2">
+                <label asp-for="User" class="h2 text-danger"></label>
+                <select id="User" asp-for="UserId" class=" form-select form-select-lg mb-3">
+                    @foreach (var item in ViewBag.Listuser)
+                    {
+                        <option value="@item.Id">
+                            @item.UserName
+                        </option>
+                    }
+                </select>
+
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+<div>
+</div>
+<script src="~/js/JSColis.js"></script>

@@ -1,0 +1,44 @@
+﻿@model List<_1311.Models.Comment>
+
+    @{
+    ViewData["Title"] = "Create Comment";
+
+    Layout = null;
+}
+<div class="card m-3 ">
+    <div class="card-header text-center h2">
+        Comment for Colis @ViewBag.idcolis
+    </div>
+    <div class="card-body">
+        @foreach (var item in Model)
+        {
+             <div class="card m-2 ">
+            <div class="card-header bg-dark text-white">
+               
+                <i name="sticker" class="bi bi-person"></i>   @item.User.UserName  : <span class="float-right">@item.DateCreation</span> 
+            </div>
+            <div class="card-body">
+                @item.Sujet : @item.Message
+            </div>
+
+        </div>
+        }
+       
+
+    </div>
+
+
+
+
+</div>
+
+<script>
+   $(document).ready( function () {
+       console.log(document.getElementsByTagName("i").length);
+      for(let i=0;i<document.getElementsByTagName("i").length;i++){
+         
+          console.log(document.getElementsByTagName("i")[i]);
+      }
+
+   })
+</script>

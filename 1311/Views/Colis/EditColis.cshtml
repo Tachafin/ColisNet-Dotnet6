@@ -1,0 +1,310 @@
+﻿@model _1311.Models.Colis
+
+@{
+    ViewData["Title"] = "create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<script src="https://unpkg.com/zxing/library@0.17.1"></script>
+
+
+<div class="card m-3">
+    <div class="card-header display-5 text-center bg-white">
+        Colis @Model.id
+        <img src="@Model.CodeBarre.Chemin" alt="Barcode Image">
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-header" >
+                        <h3 class="text-center">  INFORMATION CLIENT</h3>
+                    </div>
+
+                    <div class="card-body">
+
+                        <form asp-action="Edits" asp-controller="Colis" method="post">
+                            <input asp-for="id" hidden />
+                            <div class="form-group">
+                                <label asp-for="Client.NomComplet"></label>
+                                <input type="text" class="form-control" asp-for="Client.NomComplet" />
+
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Client.Telephone"></label>
+                                <input type="text" class="form-control" asp-for="Client.Telephone" />
+
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Client.Ville"></label>
+                                <select asp-for="Client.VilleId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    @foreach (var item in ViewBag.ListVille)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+
+
+                                </select>
+
+
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Client.adresse"></label>
+                                <input type="text" class="form-control" asp-for="Client.adresse" />
+                                <span class="small text-danger" asp-validation-for="Client.adresse"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Prix"></label>
+                                <input type="text" class="form-control" asp-for="Prix" />
+                                <span class="small text-danger" asp-validation-for="Prix"></span>
+
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="UPDATE" />
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+                @* <div class="row">*@
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">  INFORMATION USER AND BOUTIQUE</h3>
+                    </div>
+                    <div class="card-body">
+
+
+                        <input asp-for="id" hidden />
+                        <div class="form-group">
+                            <label asp-for="User.UserName">USERNAME</label>
+                            <input disabled type="text" class="form-control" asp-for="User.UserName" />
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="User.PhoneNumber">TELEPHONE</label>
+                            <input disabled type="text" class="form-control" asp-for="User.PhoneNumber" />
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="User.Boutique.Name">Nom boutique</label>
+                            <input disabled type="text" class="form-control" asp-for="User.Boutique.Name" />
+
+                        </div>
+                    </div>
+
+                </div>
+                @*</div>*@
+            </div>
+
+            <div class="col">
+                @* <div class="row">*@
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">  INFORMATION Livraison</h3>
+                    </div>
+                    <div class="card-body">
+
+
+                        <input asp-for="id" hidden />
+                        <div class="form-group">
+                            <label asp-for="Date_creation">Date Creation </label>
+                            <input disabled type="text" class="form-control" asp-for="Date_creation" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Date_Ramassage">Date Ramassage </label>
+                            <input disabled type="text" class="form-control" asp-for="Date_Ramassage" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Date_Livraison">Date Livraison</label>
+                            <input disabled type="text" class="form-control" asp-for="Date_Livraison" />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label asp-for="ListeRamassage.Livreur.Ville">Livreur Ville</label>
+                            <input disabled type="text" class="form-control" asp-for="ListeRamassage.Livreur.Ville.Name" />
+
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ListeRamassage.Name">List Ramassage</label>
+                            <input disabled type="text" id="listid" class="form-control" asp-for="ListeRamassage.Name" />
+                        </div>
+                        <div class="form-group">
+
+
+                            <div class="input-group mb-3">
+
+                                <form asp-action="EditEtat" asp-controller="colis">
+                                    <input asp-for="id" hidden />
+                                    <div class="input-group-prepend">
+                                        <label class="" for="inputGroupSelect01">ETAT</label>
+                                    </div>
+                                    <select asp-for="Etat" class="custom-select" id="inputGroupSelect01">
+                                        <option value="Livre">Livre</option>
+                                        <option value="Annule">Annule</option>
+                                        <option value="En cours">EN COURS</option>
+                                        <option value="Retourne">Retourne</option>
+                                        <option value="Rapporte">Rapporte</option>
+                                        <option value="Envoye">Envoye</option>
+                                    </select>
+                                    <br /> <br />
+                                    <input type="submit" class="btn btn-success text-center" />
+                                </form>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                @* </div>*@
+            </div>
+
+            <div class="col">
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="text-center">Comment</h3>
+
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-success ml-2"
+                                onclick="ShowComment('@Url.Action("CreateComment","Comment",new{id=@Context.Request.RouteValues["id"]},Context.Request.Scheme)')
+                            ">
+                            <i class="bi bi-plus-circle"></i>  Add Comment
+                        </button>
+
+                        @foreach (var item in Model.Comments)
+                        {
+                             
+                            if (Model.User.UserName == @User.Identity.Name)
+                            {
+                                if (item.User != null && item.User.UserName == User.Identity.Name)
+                                {
+                                    <div class="card m-2 ">
+                                        <div class="card-header bg-info text-dark">
+
+                                            <i name="sticker" class="bi bi-person"></i>   @item.User.UserName  : <span class="float-right">@item.DateCreation</span>
+                                        </div>
+                                        <div class="card-body">
+                                            @item.Sujet : @item.Message
+                                        </div>
+
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+
+
+                                <div class="card m-2 ">
+                                    <div class="card-header bg-dark text-white">
+
+                                        <i name="sticker" class="bi bi-person"></i>   @item.User.UserName  : <span class="float-right">@item.DateCreation</span>
+                                    </div>
+                                    <div class="card-body">
+                                        @item.Sujet : @item.Message
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+<div>
+    <a class="btn btn-dark m-3" asp-action="allcolis">Back to List</a>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="pop">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Comment</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="SaveComment()" class="btn btn-primary" data-bs-save="modal">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    const codeReader = new ZXing.BrowserQRCodeReader();
+
+    codeReader.decodeFromVideoDevice(null, 'webcam-preview', (result, err) => {
+      if (result) {
+        // properly decoded qr code
+        console.log('Found QR code!', result)
+        document.getElementById('result').textContent = result.text
+      }
+
+      if (err) {
+  
+        if (err instanceof ZXing.NotFoundException) {
+          console.log('No QR code found.')
+        }
+
+        if (err instanceof ZXing.ChecksumException) {
+          console.log('A code was found, but it\'s read value was not valid.')
+        }
+
+        if (err instanceof ZXing.FormatException) {
+          console.log('A code was found, but it was in a invalid format.')
+        }
+      }
+    })
+</script>
+
+
+<script src="~/js/site.js"></script>
+<script type="text/javascript">
+    let select=document.getElementById("inputGroupSelect01");
+    let listid=document.getElementById("listid").value;
+    if(listid===""){
+        select.setAttribute("disabled","true");
+
+    }
+</script>
+<script>
+    // Access the zxing object and use its functionality
+    const codeReader = new zxing.BrowserBarcodeReader();
+    codeReader.decodeOnceFromVideoDevice(undefined, 'video')
+      .then(result => {
+        console.log('Barcode value:', result.text);
+      })
+      .catch(err => {
+        console.error('Error scanning barcode:', err);
+      });
+</script>

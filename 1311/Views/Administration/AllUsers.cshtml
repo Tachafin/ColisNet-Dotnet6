@@ -1,0 +1,86 @@
+﻿@model List<AppUser>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="my-2"> <i class="bi bi-people-fill"></i> List USER </h1>
+<a asp-action="Register" class="btn btn-success" asp-controller="Account">
+    <span> <i class="bi bi-plus-circle"></i> </span> Register Nouveau User</a>
+<hr />
+<div class="card shadow @*p-3*@ mb-5 bg-white rounded">
+    <div class="card-header text-white " style="background-color:#001f3f;">
+        <span class="mr-2"> <i class="bi bi-table"></i>  </span> List User
+    </div>
+    <div class="card-body">
+        <table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                 UserName
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Numero Telephone
+            </th>
+            <th>
+                Ville
+            </th>
+            <th>
+                Adresse
+            </th>
+            <th>
+                Nom Boutique
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+         @foreach (var item in Model) {
+            <tr>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email) 
+                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Boutique.Ville.Name) 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse)
+                </td>
+                 <td>
+                     @Html.DisplayFor(modelItem => item.Boutique.Name)
+                </td>
+              
+
+                <td>
+                    <a asp-action="EditUser" class="btn btn-primary" asp-route-id="@item.Id">Actions</a> 
+                    
+                </td>
+            </tr>
+    }
+        </tbody>
+</table>
+    </div>
+
+
+</div>
+
+
+<script>
+         
+         $(document).ready( function () {
+            
+    $('#myTable').DataTable();
+} );
+        
+         </script>

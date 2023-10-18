@@ -1,0 +1,231 @@
+﻿@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<style>
+    body {
+        background-color: #EEF2F4;
+        font-family: 'Fredoka', sans-serif;
+    }
+</style>
+
+<div id="placehere">
+
+
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Colis Non Envoye</h1>
+        </div>
+
+        <div class=" card-body" id="studenteForm">
+            
+            <span class="text-black-50 text-center">
+                Filtrer par <strong>Ville</strong>
+            </span>
+            <div class="row   mb-3">
+
+
+                <div class=" col-sm">
+
+
+
+                    <select class="form-select-lg bg-secondary text-white " id="select" aria-label=" Default select example ">
+                        <option value=@null selected>All City  </option>
+                        @foreach (var item in ViewBag.ListCity)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                    <button id="btnsubmit" type="button" class="btn btn-outline-success">
+                        Search
+                    </button>
+                </div>
+            </div>
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            nom
+                        </th>
+                        <th>
+                            prix
+                        </th>
+                        <th>
+                            Client Nom
+                        </th>
+                        <th>
+                            Telephone
+                        </th>
+                        <th>
+                            ville
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Etat
+                        </th>
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.ListColisNullListe)
+                    {
+                        <tr>
+
+                            <td>@item.Numero_Colis</td>
+
+
+                            <td>@item.Prix</td>
+
+
+                            <td>@item.Client.NomComplet</td>
+                            <td>@item.Client.Telephone</td>
+                            <td>@item.Client.Ville.Name </td>
+                            <td>@item.Date_creation</td>
+
+                            <td>@item.User.UserName</td>
+                            <td>   <span class="badge badge-info">@item.Etat</span>   </td>
+                            <td>
+
+
+                                <a class="btn btn-success" onclick="ajouter(@item.id,@Context.Request.RouteValues["id"])" @*asp-action="Ajouter" asp-route-id="@item.id" asp-route-tr="@Context.Request.RouteValues["id"]"*@>Ajouter</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <br />
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Liste Ramassage  </h1>
+        </div>
+
+        <div class=" card-body">
+
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            nom
+                        </th>
+                        <th>
+                            prix
+                        </th>
+                        <th>
+                            Client Nom
+                        </th>
+                        <th>
+                            Telephone
+                        </th>
+                        <th>
+                            ville
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+
+                        <th>User</th>
+                        <th>
+                            Etat
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                @foreach (var item in ViewBag.ListColis)
+                {
+                    <tr>
+
+                        <td>@item.Numero_Colis</td>
+
+
+                        <td>@item.Prix</td>
+
+
+                        <td>@item.Client.NomComplet</td>
+                        <td>@item.Client.Telephone</td>
+                        <td>@item.Client.Ville.Name </td>
+                        <td>@item.Date_creation</td>
+
+                        <td>@item.User.UserName</td>
+                        <td>
+                            <span class="badge badge-info">
+                                @item.Etat
+                            </span>
+                        </td>
+                        <td>
+
+
+                            <a class="btn btn-danger" onclick="supprimer(@item.id,@Context.Request.RouteValues["id"])" @*asp-action="Ajouter" asp-route-id="@item.id" asp-route-tr="@Context.Request.RouteValues["id"]"*@>Supprimer</a>
+
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+
+ 
+   
+
+</div>
+
+
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+<script>
+
+
+    document.getElementById("btnsubmit").addEventListener("click",function(){
+         let select=document.getElementById("select");
+         let b=select.value;
+           console.log(b);
+           let a =@Context.Request.RouteValues["id"];
+            console.log(a);
+                   var data = $("#placehere").serialize();
+        //console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/Detailsliste/"+a+"/"+b ,
+            data: {id: a , villeid: b},
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (response) {
+
+                  $('#placehere').html(response);
+
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+
+            }
+        })
+    });
+    </script>
+@*@section DtColis{*@
+<script>
+
+             $(document).ready( function () {
+
+        $('#myTable').DataTable();
+    } );
+
+</script>

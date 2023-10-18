@@ -1,0 +1,42 @@
+﻿@model _1311.Models.Ville
+
+    @{
+        ViewData["Title"] = "create";
+    }
+
+   
+    <hr />
+
+    <div class="card">
+        <div class="card-header">
+             <h1>Create Ville</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+        <div class="col-md-4">
+            <form asp-action="create" asp-controller="ville" method="post">
+
+
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input type="text" class="form-control" asp-for="Name" />
+
+                </div>
+
+              
+
+                <input type="submit" class="btn btn-primary" value="Create" />
+            </form>
+        </div>
+    </div>
+        </div>
+
+    </div>
+
+
+    
+
+    <div>
+        <a asp-action="All">Back to List</a>
+    </div>
+

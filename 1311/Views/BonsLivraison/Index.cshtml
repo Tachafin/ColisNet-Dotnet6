@@ -1,0 +1,82 @@
+﻿@model IEnumerable<_1311.Models.BonsLivraison>
+
+@{
+    ViewData["Title"] = "BonsLivraison";
+}
+<div class="d-flex justify-content-between align-items-center mt-2">
+
+    <h1 class="">Bons Livraison <span class="btn btn-outline-primary">@Model.Count()</span></h1>
+    <a class="btn btn-success btn-lg" asp-action="Create"> <i class="bi bi-plus-circle mr-1"></i> Nouveau Bons Livraison</a>
+</div>
+<div class="card mt-4">
+
+    <div class="card-body">
+        <p>
+
+
+        </p>
+        <table class="table " data-order='[[ 0, "desc" ]]' >
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date_creation)
+                    </th>
+                    <th>
+                        Nombre des Colis
+                    </th>
+
+
+
+                    <th>Details</th>
+                    <th>Impression</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_creation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Colis.Count)
+
+                        </td>
+                        <td>
+
+
+                            <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.id">Details</a>
+
+
+                        </td>
+                        <td>
+                            <a target="_blank" class="btn btn-warning" asp-action="Print" asp-route-id="@item.id">
+                                <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                            </a>
+                            <a target="_blank" class="btn btn-warning" asp-action="stickers" asp-route-id="@item.id">
+                                <i class="bi bi-ticket-detailed"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+

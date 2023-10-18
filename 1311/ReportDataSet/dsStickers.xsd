@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsStickers" targetNamespace="http://tempuri.org/dsStickers.xsd" xmlns:mstns="http://tempuri.org/dsStickers.xsd" xmlns="http://tempuri.org/dsStickers.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsStickers" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsStickers" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsStickers">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="colis" msprop:Generator_RowEvHandlerName="colisRowChangeEventHandler" msprop:Generator_RowDeletedName="colisRowDeleted" msprop:Generator_RowDeletingName="colisRowDeleting" msprop:Generator_RowEvArgName="colisRowChangeEvent" msprop:Generator_TablePropName="colis" msprop:Generator_RowChangedName="colisRowChanged" msprop:Generator_UserTableName="colis" msprop:Generator_RowChangingName="colisRowChanging" msprop:Generator_RowClassName="colisRow" msprop:Generator_TableClassName="colisDataTable" msprop:Generator_TableVarName="tablecolis">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnVarNameInTable="columnName" type="xs:string" minOccurs="0" />
+              <xs:element name="Prix" msprop:Generator_ColumnPropNameInTable="PrixColumn" msprop:Generator_ColumnPropNameInRow="Prix" msprop:Generator_UserColumnName="Prix" msprop:Generator_ColumnVarNameInTable="columnPrix" type="xs:string" minOccurs="0" />
+              <xs:element name="Nom_Complet" msprop:Generator_ColumnPropNameInTable="Nom_CompletColumn" msprop:Generator_ColumnPropNameInRow="Nom_Complet" msprop:Generator_UserColumnName="Nom_Complet" msprop:Generator_ColumnVarNameInTable="columnNom_Complet" type="xs:string" minOccurs="0" />
+              <xs:element name="Ville" msprop:Generator_ColumnPropNameInTable="VilleColumn" msprop:Generator_ColumnPropNameInRow="Ville" msprop:Generator_UserColumnName="Ville" msprop:Generator_ColumnVarNameInTable="columnVille" type="xs:string" minOccurs="0" />
+              <xs:element name="Phone" msprop:Generator_ColumnPropNameInTable="PhoneColumn" msprop:Generator_ColumnPropNameInRow="Phone" msprop:Generator_UserColumnName="Phone" msprop:Generator_ColumnVarNameInTable="columnPhone" type="xs:string" minOccurs="0" />
+              <xs:element name="Adresse" msprop:Generator_ColumnPropNameInTable="AdresseColumn" msprop:Generator_ColumnPropNameInRow="Adresse" msprop:Generator_UserColumnName="Adresse" msprop:Generator_ColumnVarNameInTable="columnAdresse" type="xs:string" minOccurs="0" />
+              <xs:element name="CodeBare" msprop:Generator_ColumnPropNameInTable="CodeBareColumn" msprop:Generator_ColumnPropNameInRow="CodeBare" msprop:Generator_UserColumnName="CodeBare" msprop:Generator_ColumnVarNameInTable="columnCodeBare" type="xs:unsignedByte" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

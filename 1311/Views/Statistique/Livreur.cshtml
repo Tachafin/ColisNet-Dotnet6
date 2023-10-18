@@ -1,0 +1,147 @@
+﻿@using System.Linq
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+<br />
+<div class="container">
+    <div class="row">
+        <form asp-action="rechercher">
+            <div class="row">
+                <div class="col">
+                    <label>
+                        Period
+                    </label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected value=@null>Toute la periode</option>
+                        
+                        <option value="1">Aujourd'hui</option>
+                        <option value="1">Hier</option>
+                        <option value="2">Cet Semaine</option>
+                        <option value="3">Ce mois</option>
+                        <option value="3">Cette année</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>
+                        Ville
+                    </label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected value=@null>All Ville</option>
+                        <option value="1">Aujourd'hui</option>
+                        <option value="1">Hier</option>
+                        <option value="2">Cet Semaine</option>
+                        <option value="3">Ce mois</option>
+                        <option value="3">Cette année</option>
+                    </select>
+                </div>
+                <div class="col">
+                </div>
+
+                <div class="col ">
+                    <label>
+
+                    </label>
+                    <button class="btn  btn-block p-2  " style="background-color:#feb969">
+                        Submit
+                    </button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+
+            <div class="card">
+                <div class="card-header bg-white">
+                    List Livreur
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive m-2">
+                        
+                        <table class="m-1 table" >
+                            <thead>
+                                <tr>
+                                    <td>
+                                        Id
+                                    </td>
+                                    <td>
+                                        Nom
+                                    </td>
+                                    <td>
+                                        Ville
+                                    </td>
+                                    <td>
+                                        Adresse
+                                    </td>
+                                    <td>
+                                        Total Colis
+                                    </td>
+                                    <td>
+                                        Colis Livre
+                                    </td>
+                                    <td>
+                                        Colis Retourne
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.AllLivreur)
+                                {
+                                    <tr>
+                                        <td>
+                                           @item.Id
+                                        </td>
+                                        <td>
+                                            @item.Name
+
+                                        </td>
+                                        <td>
+                                            @item.Ville.Name
+
+                                        </td>
+                                        <td>
+                                            @item.Adresse
+
+                                        </td>
+                                         <td>
+                                             @item.CountColis
+                                        </td>
+                                        <td>
+                                            @item.CountColisLivre
+                                        </td> 
+                                        <td>
+                                            @item.CountColisRetourne
+                                        </td>
+
+                                       @* <td>
+                                            @Html.DisplayFor(modelItem => item.Client.Telephone)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Client.Ville.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Client.adresse)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Prix)
+                                        </td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

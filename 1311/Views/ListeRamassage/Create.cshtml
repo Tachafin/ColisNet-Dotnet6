@@ -1,0 +1,147 @@
+﻿@model ListeRamassage
+@{
+    ViewData["Title"] = "Create List Colis";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="card mt-2 shadow @*p-3*@ mb-5 mt-5 bg-white rounded ">
+
+    <div class="card-header">
+        Create Liste Ramassage
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+
+
+            <form asp-action="CreateListe" asp-controller="ListeRamassage" method="post">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="VilleId"> Ville </label>
+                                <select asp-for="VilleId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    @foreach (var item in ViewBag.ListVille)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+
+
+                                </select>
+
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Livreur</label>
+                                <select asp-for="LivreurId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    @foreach (var item in ViewBag.ListLivreur)
+                                    {
+
+                                        <option value="@item.Id">@item.User.UserName  | @item.Ville.Name    </option>
+
+
+                                    }
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                         <input type="submit" class="btn btn-success " value="Create" />
+                    </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                             <div cclass="col">
+                                    <button class=" btn-sm btn-dark "  asp-action="index" value="" >Back To Liste</button>
+
+                             </div>
+                        </div>
+
+                       
+               
+            
+               
+
+            </form>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+<script>
+
+             $(document).ready( function () {
+
+        $('#myTable').DataTable();
+    } );
+
+</script>
+
+
+<script>
+         function ajouter(a,b) {
+          val1 = a;
+        val2 = b;
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/listeramassage/"+a+"/ajouter/"+b,
+            data: {id: val1, tr: val2},
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (result) {
+
+                  ShowHint(val2);
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+
+    function ShowHint(ids){
+        $(document).ready(function(){
+            $.ajax({
+                url:"/Detailsliste/"+ids,
+                data:{xx:ids},
+                method:'GET',
+                cache:false,
+                success: function(response){
+                    $('#placehere').html(response);
+                }
+
+
+
+            });
+        });
+
+
+
+    }
+</script>

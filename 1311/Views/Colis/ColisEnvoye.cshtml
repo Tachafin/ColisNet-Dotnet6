@@ -1,0 +1,171 @@
+﻿@model IEnumerable<_1311.Models.Colis>
+
+    @{
+    ViewData["Title"] = "Colis Envoye";
+}
+
+
+<br />
+<h1> List Colis Envoye <span class="btn btn-outline-primary">@Model.Count()</span></h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="colisenattente"> <i class="bi bi-plus-circle mr-1"></i> Nouveau colis </a>
+</p>
+<div class="card box-shadow p-1 ">
+
+
+
+    <div class="table-responsive">
+        <table id="myTable" class="table table-striped table-bordered dt-responsive nowrap ">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Numero_Colis)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.NomComplet)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.Telephone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.Ville.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.adresse)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Prix)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date_creation)
+                    </th>
+
+                    <th>
+                        Livreur
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Etat)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Statut)
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Numero_Colis)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.NomComplet)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.Telephone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.Ville.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.adresse)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prix)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_creation)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ListeRamassage.Livreur.Name)
+                        </td>
+
+                        <td>
+                            @{
+                                if (item.Etat == "Livre")
+                                {
+                                    <h6>  <a class="badge badge-success ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+                                else if (item.Etat == "En cours")
+                                {
+                                    <h6>  <a class="badge bg-secondary ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+                                else if (item.Etat == "Retourne")
+                                {
+                                    <h6>  <a class="badge bg-danger ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+                                else if (item.Etat == "Envoye")
+                                {
+                                    <h6>  <a class="badge bg-warning text-dark ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#pop2"
+                                onclick="Popup('@Url.Action("ShowComment","Colis",new { id = item.id },Context.Request.Scheme)') ">
+                                <i class="bi bi-eye"></i> Afficher
+                            </button>
+                        </td>
+                        <td>
+
+                            @if (item.Statut == "Non paye")
+                            {
+                                <div class="badge badge-info">
+                                    @Html.DisplayFor(modelItem => item.Statut)
+                                </div>
+                            }
+                            else if (item.Statut == "Paye")
+                            {
+                                <div class="badge badge-success">
+                                    @Html.DisplayFor(modelItem => item.Statut)
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="pop2">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Commentaires</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="partical">
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-start">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+<script src="~/js/JSColis.js"></script>
+@*@section DtColis{*@
+

@@ -1,0 +1,27 @@
+﻿@model _1311.Models.Colis
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<div class="container">
+
+
+    <div class="row">
+        @foreach (var item in @Model.Comments)
+        {
+            <div class="card m-2 ">
+                <div class="card-header bg-dark text-white">
+
+                    <i name="sticker" class="bi bi-person"></i>   @item.User.UserName  : <span class="float-right">@item.DateCreation</span>
+                </div>
+                <div class="card-body">
+                    @item.Sujet : @item.Message
+                </div>
+
+            </div>
+        }
+
+
+    </div>
+</div>

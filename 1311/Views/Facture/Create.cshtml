@@ -1,0 +1,42 @@
+﻿@model _1311.Models.ViewModels.CreateFactureViewModel
+
+    @{
+    ViewData["Title"] = "create";
+  
+    Layout = null;
+}
+
+<div class="">
+    <form action="create" id="frm"  method="post">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="User"></label>
+                     <select id="User" asp-for="User" class=" form-select form-select-lg mb-3">
+                        @foreach (var item in ViewBag.Listuser)
+                        {
+                            <option value="@item.Id">
+                                @item.UserName
+                            </option>
+                        }
+                    </select>
+
+                </div>
+            </div>
+           
+        </div>
+      
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+<div>
+</div>
+    <script src="~/js/JsFacture.js"> </script>

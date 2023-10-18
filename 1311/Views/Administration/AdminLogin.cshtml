@@ -1,0 +1,36 @@
+﻿@model _1311.Models.ViewModels.AccountLoginViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "_Layout";
+}
+@if (ViewBag.Error != null)
+{
+  <div class="badge badge-danger">
+       @ViewBag.Error
+  </div>  
+}
+<form asp-action="adminlogin" asp-controller="Account" method="post" style="margin-left:150px;margin-right:150px">
+
+
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input type="text" class="form-control" asp-for="Email" />
+        <span class="small text-danger" asp-validation-for="Email"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input type="password" class="form-control" asp-for="Password" />
+        <span class="small text-danger" asp-validation-for="Password"></span>
+
+    </div>
+
+
+
+    <br\>
+        <input type="submit" class="btn btn-primary" value="login" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+</form>

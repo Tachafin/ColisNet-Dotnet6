@@ -1,0 +1,40 @@
+﻿@model CreateDemandeViewModel
+<h2 class="mt-2">
+    Ajouter de demande Ramassage
+</h2>
+<div class="card">
+    <div class="card-body m-2">
+        <form method="post" asp-action="create">
+            <div class="row">
+                <div class="col">
+                    <label asp-for="Numero_Telephone"></label>
+                    <input type="text" class="form-control" asp-for="Numero_Telephone" />
+                    <span class="small text-danger" asp-validation-for="Numero_Telephone"></span>
+
+                </div>
+                <div class="col">
+                    <label asp-for="Adresse"></label>
+                    <input type="text" class="form-control" asp-for="Adresse" />
+                    <span class="small text-danger" asp-validation-for="Adresse"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label asp-for="Note"></label>
+                    <input type="text" class="form-control" asp-for="Note" />
+                    <span class="small text-danger" asp-validation-for="Note"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mt-2">
+                    <button type="submit" class="btn btn-success">
+                    Enregistrer
+                </button>
+                </div>
+                
+
+            </div>
+
+        </form>
+    </div>
+</div>

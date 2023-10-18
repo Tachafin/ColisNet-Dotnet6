@@ -1,0 +1,566 @@
+﻿@model _1311.Models.ViewModels.ColisViewModels.ColisAdminViewModel
+
+    @{
+    ViewData["Title"] = "All Colis";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+
+}
+<div id="placehereall">
+
+
+
+    <div class="card mb-3 mt-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col mt-3 mb-3">
+                    <i class="bi bi-person-circle p-3"></i>
+                    <span style="color:#115173">Dashboard Admin</span>
+                </div>
+
+            </div>
+            <div class="row my-2">
+                <div class="col-12 col-md-auto mb-3 mb-md-0">
+                    <span class="text-black-50 text-center">
+                        Filtrer par <strong>Client</strong>
+                    </span>
+                    <br />
+
+                    <select class="form-select-lg bg-secondary text-white" style="background-color:#115173" id="select" aria-label="Default select example">
+                        <option value=@null selected>Choose a Client</option>
+                        @foreach (var item in Model.Listuser)
+                        {
+                            <option value="@item.Id">@item.UserName</option>
+                        }
+                    </select>
+
+                </div>
+                @*  //ville *@
+                <div class="col-12 col-md-auto">
+                    <span class="text-black-50 text-center">
+                        Filtrer par <strong>Ville</strong>
+                    </span>
+                    <br />
+
+                    <select class="form-select-lg bg-secondary text-white" id="selectville" aria-label="Default select example">
+                        <option value=@null selected>Choose a Ville</option>
+                        @foreach (var item in Model.AllVille)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+
+                </div>
+                <div class="col-12 col-md-auto">
+                    <span class="text-black-50 text-center">
+                        Filtrer par <strong>Livreur</strong>
+                    </span>
+                    <br />
+
+                    <select class="form-select-lg bg-secondary text-white" id="selectlivreur" aria-label="Default select example">
+                        <option value=@null selected>Choose a Livreur</option>
+                        @foreach (var item in Model.AllLivreur)
+                        {
+                            <option value="@item.User.Id">@item.User.UserName</option>
+                        }
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button id="btnsubmit" type="button" class="btn btn-outline-success">
+                Submit
+            </button>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <button onclick="check('All')" type="button" class="btn btn-outline-dark btn-lg btn-block">
+                All Colis :<strong> @Model.AllColis </strong> <i class="fas fa-angle-right float-right mt-1"></i>
+            </button>
+
+        </div>
+        <div class="col">
+            <button onclick="check('En cours')" type="button" class="btn btn-outline-info btn-lg btn-block">
+                Colis Encours  :<strong> @Model.AllColisEncours</strong><i class="fas fa-angle-right float-right mt-1"></i>
+            </button>
+        </div>
+        <div class="col">
+            <button onclick="check('Envoye')" type="button" class="btn btn-outline-warning btn-lg btn-block">
+                Colis Envoye  :<strong> @Model.AllColisEnvoye</strong><i class="fas fa-angle-right float-right mt-1"></i>
+            </button>
+        </div>
+        <div class="col">
+            <button type="button" onclick="check('Livre')" class="btn btn-outline-success btn-lg btn-block">
+                Colis Livre  :<strong> @Model.AllColisLivre</strong><i class="fas fa-angle-right float-right mt-1"></i>
+            </button>
+        </div>
+        <div class="col">
+            <button onclick="check('Retourne')" type="button" class="btn btn-outline-danger btn-lg btn-block">
+                Colis Retourne  :<strong> @Model.AllColisRetourne</strong><i class="fas fa-angle-right float-right mt-1"></i>
+            </button>
+        </div>
+
+    </div>
+    <br />
+    @*<button   class="btn btn-primary" data-toggle="modal" data-target="#addColis"> <i class="bi bi-plus-circle mr-1"></i>  Colis for admin</button>
+
+    *@
+    <div id="placeholder">
+    </div>
+
+    <div class="row justify-content-start">
+        <div class="col-auto">
+            <a  onclick="ShowPopUp('@Url.Action("CreateColis","Colis",null,Context.Request.Scheme)') " class="btn btn-success text-white">  <i class="bi bi-plus-circle mr-1"></i> Create Colis for admin</a>
+        </div>
+        <div class="col-auto">
+            <button id="scanButton" style="background-color:#115173" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#barcodeScannerModal">
+                <i class="bi bi-upc-scan"></i>      Scan Colis
+            </button>
+        </div>
+
+    </div>
+
+    <br />
+
+
+
+
+
+    <!-- Modal Popup -->
+    <div class="modal fade" id="barcodeScannerModal" tabindex="-1" aria-labelledby="barcodeScannerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="barcodeScannerModalLabel">Barcode Scanner</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Video element to show the scanner -->
+                    <video id="barcodeScannerVideo" class="w-100" style="height: auto;"></video>
+                </div>
+                <div class="modal-footer">
+                    <!-- Button to start the scanner -->
+                    <button type="button" class="btn btn-primary" onclick="startScanner()">Start Scanner</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="result"></div>
+
+    <br />
+
+
+    <div class="card mb-4" id="placehere">
+
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            All Colis
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table id="myTable" class="table table-striped" data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Name Client
+                            </th>
+                            <th>
+                                PhoneNumber Client
+                            </th>
+                            <th>
+                                Ville
+                            </th>
+                            <th>
+                                Adresse
+                            </th>
+                            <th>
+                                Prix
+                            </th>
+                            <th>
+                                Etat
+                            </th>
+                            <th>
+                                Statut
+                            </th>
+                            <th>
+                                Date Creation
+                            </th>
+
+                            <th>
+                                USER
+                            </th>
+                            <th>
+                                Livreur
+                            </th>
+                            <th>Comment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Name Client
+                            </th>
+                            <th>
+                                PhoneNumber Client
+                            </th>
+                            <th>
+                                Ville
+                            </th>
+                            <th>
+                                Adresse
+                            </th>
+                            <th>
+                                Prix
+                            </th>
+                            <th>
+                                Etat
+                            </th>
+                            <th>
+                                Statut
+                            </th>
+                            <th>
+                                Date Creation
+                            </th>
+
+                            <th>
+                                USER
+                            </th>
+
+                            <th>
+                                Livreur
+                            </th>
+                            <th>
+                                Comments
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model.XColis)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nom_Colis)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nom_de_client)
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NumeroTelephone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Ville)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Adresse)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Prix)
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.Etat == "Livre")
+                                        {
+                                            <h6>  <a class="badge badge-success ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                        }
+                                        else if (item.Etat == "En cours")
+                                        {
+                                            <h6>  <a class="badge bg-secondary ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                        }
+                                        else if (item.Etat == "Retourne")
+                                        {
+                                            <h6>  <a class="badge bg-danger ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                        }
+                                        else if (item.Etat == "Envoye")
+                                        {
+                                            <h6>  <a class="badge bg-warning text-dark ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                        }
+                                        else if (item.Etat == "Annule")
+                                        {
+                                            <h6>  <a class="badge bg-danger ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.Statut == "Non Paye")
+                                        {
+                                            <h6>  <a class="badge badge-danger text-white ">@Html.DisplayFor(modelItem => item.Statut)</a> </h6>
+                                        }
+                                        else if (item.Statut == "Paye")
+                                        {
+                                            <h6>  <a class="badge badge-success text-white ">@Html.DisplayFor(modelItem => item.Statut)</a> </h6>
+                                        }
+                                    }
+
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateCreation)
+                                </td>
+
+                                <td>
+                                    <span class="badge badge-dark">  @Html.DisplayFor(modelItem => item.User)</span>
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Livreur)
+                                </td>
+                                <td>
+                                         @Html.DisplayFor(modelItem => item.LastComment)
+                                </td>
+
+
+                                <td>
+                                    <a style="background-color:#115173" asp-action="EditColis" class="btn btn-primary" asp-route-id="@item.Id">Actions</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="pop">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Colis</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="savedataAdmin()" class="btn btn-primary" data-bs-save="modal">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+<script src="~/js/JSColis.js"></script>
+@*<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>*@
+@*@section DtColis{*@
+@*<script src="~/js/site.js"></script>*@
+<script>
+    function show(){
+        console.log("yes");
+              $("#pop").modal('show');
+    }
+
+             $(document).ready( function () {
+
+        $('#myTable').DataTable();
+    } );
+
+</script>
+
+
+@*}*@
+
+
+
+
+
+<script>
+
+        $('#pop').on('hidden.bs.modal', function (e) {
+
+    })
+
+
+
+
+        function check(a) {
+
+
+            var data = $("#placehere").serialize();
+
+
+            $.ajax({
+                type: 'GET',
+                url: "/Colis/DetailsEtat?etat="+a,
+                data: {nom: a},
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+                success: function (response) {
+
+                      $('#placehere').html(response);
+
+
+                },
+                error: function () {
+                    alert('Failed to receive the Data');
+                    console.log('Failed ');
+
+                }
+            })
+        }
+
+
+
+
+        document.getElementById("btnsubmit").addEventListener("click",function(){
+             let a=document.getElementById("select").value;
+             let b = document.getElementById("selectville").value;
+             let c =document.getElementById("selectlivreur").value;
+
+               var data = $("#placehere").serialize();
+
+
+            $.ajax({
+                type: 'GET',
+                 url: "/Colis/DetailsColis?clientid="+a+"&villeid="+b+"&livreurid="+c,
+                data: {nom: a},
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+                success: function (response) {
+
+                      $('#placehere').html(response);
+
+
+                },
+                error: function () {
+                    alert('Failed to receive the Data');
+                    console.log('Failed ');
+
+                }
+            })
+        });
+
+
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+
+
+<script>
+    var scannerIsRunning = false;
+    var videoElement = document.getElementById('barcodeScannerVideo');
+    var modalElement = document.getElementById('barcodeScannerModal');
+    var modalShown = false;
+    var stream = null;
+
+    function startScanner() {
+        if (scannerIsRunning) {
+            return;
+        }
+
+        // Get access to the camera stream
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    // Display the video stream in the video element
+                    videoElement.srcObject = stream;
+                    videoElement.play();
+                    // Store the stream so we can stop it later
+                    stream = stream;
+
+                    // Start the barcode scanner
+                    Quagga.init({
+                        inputStream: {
+                            name: 'Live',
+                            type: 'LiveStream',
+                            target: videoElement
+                        },
+                        decoder: {
+                            readers: ['code_128_reader']
+                        }
+                    }, function (err) {
+                        if (err) {
+                            console.error('Error initializing barcode scanner: ' + err);
+                            return;
+                        }
+                        Quagga.start();
+                        scannerIsRunning = true;
+                    });
+
+                    // Add event listener to handle the scanned barcode
+                    Quagga.onDetected(function (result) {
+                        var barcodeData = result.codeResult.code;
+                        console.log('Scanned Barcode: ' + barcodeData);
+                        alert(barcodeData);
+                        var actionUrl = '/Colis/GetColisWithScan/';
+        // Replace 'param1Value' and 'param2Value' with the actual values you want to pass as parameters
+                           var param1Value = barcodeData;
+
+
+        // Build the URL with the parameters
+          var urlWithParams = actionUrl + encodeURIComponent(param1Value) ;
+          alert(urlWithParams);
+        // Redirect to the URL
+
+                        // Do whatever you want with the scanned barcode data
+                        // For example, display it on the page or use it for some other processing.
+                        document.getElementById('result').innerText = 'Scanned Barcode: ' + barcodeData;
+
+                        // Stop the scanner after a successful scan
+                        Quagga.stop();
+                        scannerIsRunning = false;
+                         window.location.href = urlWithParams;
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Error accessing camera stream: ' + error);
+                });
+        } else {
+            console.error('getUserMedia is not supported in this browser.');
+        }
+    }
+
+    // Load the video only when the modal is shown for the first time
+    modalElement.addEventListener('show.bs.modal', function () {
+        if (!modalShown) {
+            startScanner();
+            modalShown = true;
+        }
+    });
+
+    // Stop the camera stream when the modal is hidden
+    modalElement.addEventListener('hidden.bs.modal', function () {
+        if (stream) {
+            var tracks = stream.getTracks();
+            tracks.forEach(function (track) {
+                track.stop();
+            });
+            videoElement.srcObject = null;
+            stream = null;
+        }
+        modalShown = false;
+    });
+</script>

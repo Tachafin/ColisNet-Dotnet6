@@ -1,0 +1,46 @@
+﻿@model _1311.Models.Comment
+
+    @{
+    ViewData["Title"] = "Create Comment";
+  
+    Layout = null;
+}
+
+<div class="">
+    <form action="create" id="frm"  method="post">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Sujet"></label>
+                    <select name="Sujet" class="form-select" aria-label="Default select example" asp-for="Sujet">
+                             <option value="@null"> Choose ..</option>
+                            <option value="No Answer">No Answer</option>
+                            <option value="Envoye">Reported</option>
+                            <option value="Number incorrect">Number incorrect</option>
+                            <option value="Annule">Annule</option>
+                             <option value="Others">Others..</option>
+                    </select>
+                    
+
+                </div>
+            </div>
+            
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Message"></label>
+                    <input id="Message" type="text" class="form-control" asp-for="Message" />
+
+                </div>
+            </div>
+        </div>
+       
+                    <input id="ColisId" style="display:none" value="@Context.Request.RouteValues["id"]" type="text" class="form-control" asp-for="ColisId" />
+    </form>
+</div>
+
+
+
+
+
+
+    <script src="~/js/site.js"></script>

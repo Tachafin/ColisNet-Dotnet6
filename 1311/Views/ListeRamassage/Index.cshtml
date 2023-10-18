@@ -1,0 +1,354 @@
+﻿@model IEnumerable<_1311.Models.ListeRamassage>
+
+@{
+    ViewData["Title"] = "Liste Ramassage ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+
+}
+<style>
+    .btt {
+        background-color: #115173;
+    }
+
+        .btt:hover {
+            background-color: #1160AA;
+            color: black;
+        }
+
+</style>
+
+@{
+    DateTime currentDate = DateTime.Now;
+    string[] lastSevenDays = new string[7];
+    for (int i = 0; i < 7; i++)
+    {
+        lastSevenDays[i] = currentDate.AddDays(-i).ToString("dd/MM/yyyy");
+
+    }
+    string p1 = lastSevenDays[0];
+    string p2 = lastSevenDays[6];
+
+    DateTime currentDatex = DateTime.Now;
+    int daysInMonth = DateTime.DaysInMonth(currentDatex.Year, currentDatex.Month);
+    string[] currentMonthDates = new string[daysInMonth];
+    for (int i = 1; i <= daysInMonth; i++)
+    {
+        currentMonthDates[i - 1] = new DateTime(currentDatex.Year, currentDatex.Month, i).ToString("dd/MM/yyyy");
+    }
+    string m1 = currentMonthDates[0];
+    string m2 = currentMonthDates[29];
+
+}
+<div class="card mt-1">
+    <div class="card-header bg-white">
+        <i class="bi bi-person-circle p-3 display-5"></i>
+        <span class="display-5" style="color:#001f3f">Liste Ramassage for livreur</span>
+    </div>
+    <div class="card-body">
+
+
+
+        <div class="row">
+            <div class="d-flex align-items-center">
+                <button class="btn btn-outline-primary m-2  " value="@DateTime.Now.ToString("dd/MM/yyyy")">
+                    Today
+                </button>
+                <button class="btn btn-outline-primary m-2 " value="@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")">
+                    Yesterday
+                </button>
+                <button class="btn btn-outline-primary m-2 " value="@m1" id="last7day">
+                    Last 7 days
+                </button>
+                <button class="btn btn-outline-primary m-2 " value="@m2" id="Month">
+                    This Month
+                </button>
+
+                <input hidden type="text" id="dt1"  class="form-control w-25" value="">
+                <input hidden type="text" id="dt2" class="form-control w-25" value="">
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-3">
+                <label>Livreur</label>
+                <div class="d-flex align-items-center">
+                    <select class="form-control " id="s1">
+                        <option value="@null">
+                            Choose a Livreur
+                        </option>
+
+                        @foreach (var item in ViewBag.Listuser)
+                        {
+                            <option value="@item.Id">
+                                @item.UserName
+                            </option>
+                        }
+
+                    </select>
+                </div>
+
+
+
+
+            </div>
+            <div class="col-3">
+                <label>Etat</label>
+                <div class="d-flex align-items-center">
+                    <select class="form-control " id="s2">
+                        <option value="@null">
+                            Choose a Etat
+                        </option>
+                        <option value="En cours">  Encours </option>
+                        <option value="Envoye">  Envoye </option>
+                        <option value="Completed">  Completed </option>
+                    </select>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+
+
+                <button type="submit" class="btn btn-info m-2 text-white btt " id="bs">
+                    Search
+                </button>
+            </div>
+
+        </div>
+        @*  </form>*@
+    </div>
+</div>
+
+
+<br />
+<a asp-action="create" asp-controller="listeramassage" class="btn btn-success"> <i class="bi bi-plus-circle"></i> Create Liste</a>
+<hr />
+
+<div class="card mb-4" id="placehere">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Liste Ramassage
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+
+
+            <table id="myTable" class="table" data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+                        <th>
+                            Ville
+                        </th>
+                        <th>
+                            Name Livreur
+                        </th>
+                        <th>
+                            Nb Colis
+                        </th>
+                        <th>
+                            Etat
+                        </th>
+
+
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+                        <th>
+                            Ville
+                        </th>
+                        <th>
+                            Name Livreur
+                        </th>
+                        <th>
+                            Nb Colis
+                        </th>
+                        <th>
+                            Etat
+                        </th>
+
+
+
+                        <th>Actions</th>
+                    </tr>
+
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateCreation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ville.Name)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Livreur.User.UserName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Colis.Count)
+                            </td>
+                            <td>
+                                @if (item.Etat == "En cours")
+                                {
+                                    <h6>  <a class="badge bg-secondary ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+                                else if (item.Etat == "Envoye")
+                                {
+                                    <h6>  <a class="badge bg-warning text-dark ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+                                else if (item.Etat == "Completed")
+                                {
+                                    <h6>  <a class="badge bg-success text-dark ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+
+                            </td>
+
+                            <td>
+                                <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id">Actions</a>
+                                <a class="btn btn-dark" target="_blank" asp-action="print" asp-controller="ListeRamassage" asp-route-id="@item.Id"><i class="bi bi-printer"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+@*@section DtColis{*@
+<script>
+
+    $(document).ready(function () {
+
+        $('#myTable').DataTable();
+    });
+
+</script>
+
+
+@*}*@
+
+
+
+
+
+<script>
+
+    let days = document.getElementById('days');
+    let Month = document.getElementById('Month');
+    let starts = "@null";
+    let ends = "@null";
+    let dt1 = document.getElementById("dt1");
+    let dt2 = document.getElementById("dt2");
+
+    last7day.addEventListener('click', function () {
+
+        starts = "@p1";
+        ends = "@p2";
+        dt1.value = starts;
+        dt2.value = ends;
+
+    });
+    Month.addEventListener('click', function () {
+
+        starts = "@m1";
+        ends = "@m2";
+        dt1.value = starts;
+        dt2.value = ends;
+
+    });
+
+    document.getElementById("bs").addEventListener("click", function (event) {
+
+        var a = document.getElementById("s1").value;
+        var b = document.getElementById("s2").value;
+        var c = dt1.value;
+        var d = dt2.value;
+        alert(c);
+        alert(d);
+        window.location.href = "/Admin/listeramassage?userid=" + encodeURIComponent(a) + "&etat=" + encodeURIComponent(b) + "&start=" + encodeURIComponent(c) + "&end=" + encodeURIComponent(d);
+
+
+    });
+
+
+
+    function check(a) {
+
+
+        var data = $("#placehere").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/Admin/DetailsColis/" + a,
+            data: { nom: a },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (response) {
+
+                $('#placehere').html(response);
+
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+
+            }
+        })
+    }
+
+</script>
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+﻿@model UploadRecuViewModel
+
+    @{
+    ViewData["Title"] = "create";
+
+    Layout = null;
+}
+
+<div class="">
+  <form asp-controller="Facture" asp-action="UpdateImage" method="post" enctype="multipart/form-data" id="frm"  method="post">
+    <input  asp-for="Id" hidden />
+    <div class="form-group">
+        <label asp-for="Photo"></label>
+        <input asp-for="Photo" type="file" class="form-control-file" />
+    </div>
+   
+</form>
+</div>
+
+
+
+
+
+
+
+
+
+<div>
+</div>
+<script>
+
+</script>
+<script src="~/js/JsFacture.js"></script>

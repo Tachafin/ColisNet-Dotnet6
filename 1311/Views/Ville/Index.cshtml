@@ -1,0 +1,62 @@
+﻿@model List<Ville>
+@{
+    ViewData["Title"] = "Liste Ville";
+
+
+
+}
+
+
+<h1 class="mt-2"> List Ville <span class="btn btn-outline-primary ">@Model.Count()</span></h1>
+
+
+<div class="card mb-4" id="placehere">
+
+    <div class="card-body">
+        <table id="myTable" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Name
+                    </th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+
+                        </td>
+
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@*
+    <script src="~/lib/jquery/jquery.js"></script>*@
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+<script>
+
+             $(document).ready( function () {
+
+        $('#myTable').DataTable();
+    } );
+
+</script>

@@ -1,0 +1,360 @@
+﻿@model AdminHomeIndexViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    DateTime currentDate = DateTime.Now;
+    string[] lastSevenDays = new string[7];
+    for (int i = 0; i < 7; i++)
+    {
+        lastSevenDays[i] = currentDate.AddDays(-i).ToString("dd/MM/yyyy");
+
+    }
+    string p1 = lastSevenDays[0];
+    string p2 = lastSevenDays[6];
+
+    DateTime currentDatex = DateTime.Now;
+    int daysInMonth = DateTime.DaysInMonth(currentDatex.Year, currentDatex.Month);
+    string[] currentMonthDates = new string[daysInMonth];
+    for (int i = 1; i <= daysInMonth; i++)
+    {
+        currentMonthDates[i - 1] = new DateTime(currentDatex.Year, currentDatex.Month, i).ToString("dd/MM/yyyy");
+    }
+    string m1 = currentMonthDates[0];
+    string m2 = currentMonthDates[29];
+
+}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+
+<style>
+    .customul {
+        width: 130px;
+        height: 35px;
+        text-align: center;
+        margin-top: 15px;
+        overflow: hidden;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+        a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+    .wins {
+        overflow: hidden;
+    }
+
+        .wins:hover {
+            text-decoration: none;
+        }
+
+    .hyd {
+        background-color: black;
+    }
+
+   
+    #date {
+    }
+</style>
+
+
+<div class="card mt-1">
+    <div class="card-header bg-white">
+        <i class="bi bi-person-circle p-3 display-5"></i>
+        <span class="display-5" style="color:#115173"> Dashboard Admin</span>
+    </div>
+    <div class="card-body">
+
+
+        <div class="row overflow-hidden">
+            <div class="d-flex justify-content-start">
+                <div class="">
+                    <button class="btn  m-2 text-white btt" value="@DateTime.Now.ToString("dd/MM/yyyy")">
+                        Today
+                    </button>
+                </div>
+                <div class="">
+                    <button class="btn  m-2 text-white btt" value="@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy");">
+                        Yesterday
+                    </button>
+                </div>
+                <div class="">
+                    <button class="btn  m-2 text-white btt dtt" value="@m1" id="days">
+                        Last 7 days
+                    </button>
+                </div>
+                <div class="">
+                    <button class="btn  m-2 text-white btt" value="@m2" id="Month">
+                        This Month
+                    </button>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 col-md-3">
+                <label>USER</label>
+                <div class="d-flex align-items-center">
+                    <select class="form-control " id="s1">
+                        <option value="@null">
+                            Choose a user
+                        </option>
+                        @foreach (var item in Model.Listuser)
+                        {
+                            <option value="@item.Id">
+                                @item.UserName
+                            </option>
+                        }
+                    </select>
+                </div>
+
+
+
+
+            </div>
+            <div class="col-12 col-md-3">
+                <label>Ville</label>
+                <div class="d-flex align-items-center">
+                    <select class="form-control " id="s2">
+                        <option value="@null">
+                            Choose a City
+                        </option>
+                        @foreach (var item in Model.Listville)
+                        {
+                            <option value="@item.Id">
+                                @item.Name
+                            </option>
+                        }
+                    </select>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+
+
+                <button type="submit" class="btn btn-info m-2 text-white btt " id="bs">
+                    Search
+                </button>
+            </div>
+
+        </div>
+        @*  </form>*@
+    </div>
+</div>
+<div class="card mt-2" id="myDiv">
+    <div class="card-header bg-white display-5 ">
+        <i class="bi bi-graph-up"></i>     Statistique
+    </div>
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-12 col-md-3 mb-3 ">
+                <div class="card" style=" background-color: #EEF2F4;">
+                    <div class="card-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461L10.404 2Z" />
+                        </svg>  All Colis : @Model.all
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 mb-3">
+                <div class="card" style=" background-color: #EEF2F4;">
+                    <div class="card-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461L10.404 2Z" />
+                        </svg>
+                        Colis en Attente : @Model.Encours
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 mb-3">
+                <div class="card" style=" background-color: #EEF2F4;">
+                    <div class="card-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461L10.404 2Z" />
+                        </svg>
+                        Colis Livre : @Model.Livre
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 mb-3">
+                <div class="card" style=" background-color: #EEF2F4;">
+                    <div class="card-body">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461L10.404 2Z" />
+                        </svg>
+                        Colis Retourne : @Model.Retourne
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 col-md-4 ">
+
+
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <center> Earnings PAYOUT </center>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="alert alert-primary" role="alert">
+                            <center> <i class="bi bi-info-circle"></i> Work Just in filter USER</center>
+                        </div>
+                        <div class="card" style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-cash-stack mr-2"></i> Totale Earnings :  <span class="float-right"> @Model.totale Dhs</span>
+                            </div>
+                        </div>
+
+
+                        <div class="card mt-2 " style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-cash-stack mr-2"></i> Totale Commission  : <span class="float-right"> @Model.Commission Dhs</span>
+                            </div>
+                        </div>
+                        <div class="card mt-2 " style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-cash-stack mr-2"></i>   NET EARNINGS  :  <span class="float-right"> @Model.net Dhs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-header  text-white" style="background-color:#8E3343">
+                        <center> Earnings non PAYOUT </center>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="alert alert-primary" role="alert">
+                            <center> <i class="bi bi-info-circle"></i> Work Just in filter USER</center>
+                        </div>
+                        <div class="card" style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-cash-stack mr-2"></i> Totale Earnings :  <span class="float-right"> @Model.totalenonpayout Dhs</span>
+                            </div>
+                        </div>
+
+
+                        <div class="card mt-2 " style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-cash-stack mr-2"></i> Totale Commission  : <span class="float-right"> @Model.Commissionnonpayout Dhs</span>
+                            </div>
+                        </div>
+                        <div class="card mt-2 " style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-cash-stack mr-2"></i>   NET EARNINGS  :  <span class="float-right"> @Model.netnonpayout Dhs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-header  text-white" style="background-color:#115173">
+                        <center> Facture </center>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="alert alert-primary" role="alert">
+                            <center> <i class="bi bi-info-circle"></i> Work Just in filter USER</center>
+                        </div>
+                        <div class="card" style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-card-list"></i> Total Facture  :  <span class="float-right"> @Model.allfacture </span>
+                            </div>
+                        </div>
+
+
+                        <div class="card mt-2 " style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-card-list"></i> Facture Paye  : <span class="float-right"> @Model.facturepaye </span>
+                            </div>
+                        </div>
+                        <div class="card mt-2 " style=" background-color: #EEF2F4;">
+                            <div class="card-body">
+                                <i class="bi bi-card-list"></i>  Facture  Impaye  :  <span class="float-right"> @Model.factureimpaye </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<script>
+    let days=document.getElementById('days');
+     let Month=document.getElementById('Month');
+     let starts="@null";
+     let ends="@null";
+
+     days.addEventListener('click',function(){
+
+           starts="@p1";
+           ends="@p2";
+         document.getElementById("dt1").value=starts;
+        document.getElementById("dt2").value=ends;
+
+     });
+      Month.addEventListener('click',function(){
+
+           starts="@m1";
+           ends="@m2";
+        document.getElementById("dt1").value=starts;
+        document.getElementById("dt2").value=ends;
+
+     });
+
+
+
+
+
+
+     document.getElementById("bs").addEventListener("click", function(event) {
+
+              var a = document.getElementById("s1").value;
+             var b = document.getElementById("s2").value;
+             var c= starts;
+             var d=ends;
+
+
+     window.location.href = "/Admin/Dashboard?userid=" + encodeURIComponent(a) + "&villeid=" + encodeURIComponent(b) + "&start=" + encodeURIComponent(c) + "&end=" + encodeURIComponent(ends);
+
+
+     });
+
+
+</script>

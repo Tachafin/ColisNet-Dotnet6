@@ -1,0 +1,73 @@
+﻿@model Livreur
+
+    @{
+        ViewData["Title"] = "Edit Livreur";
+          Layout ="~/Views/Shared/_LayoutAdmin.cshtml";
+
+    }
+  
+
+    <div class="card mt-2">
+        <div class="card-header">
+             <h1>Modifier Livreur</h1>
+        </div>
+        <div class="card-body">
+             <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" asp-controller="Livreur" method="post">
+
+
+                <div class="form-group">
+                    <label asp-for="User.FirstName"></label>
+                    <input type="text" class="form-control" asp-for="User.FirstName" />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="User.LastName"></label>
+                    <input type="text" class="form-control" asp-for="User.LastName" />
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="User.PhoneNumber"></label>
+                    <input type="text" class="form-control" asp-for="User.PhoneNumber" />
+                    <span class="small text-danger" asp-validation-for="User.PhoneNumber"></span>
+
+                </div>
+                <div class="form-group">
+                     <label asp-for="VilleId"></label>
+                    <select asp-for="VilleId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    @foreach(var item in ViewBag.ListVille)
+                    {
+                       <option value="@item.Id">@item.Name</option> 
+                    }
+                    
+                        
+                    </select>
+                   
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Adresse"></label>
+                    <input type="text" class="form-control" asp-for="Adresse" />
+                    <span class="small text-danger" asp-validation-for="Adresse"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="User.Email"></label>
+                    <input  type="text" class="form-control" asp-for="User.Email" />
+                    <span class="small text-danger" asp-validation-for="User.Email"></span>
+
+                </div>
+                
+
+
+                <input type="submit" class="btn btn-primary" value="Modifier" />
+                    <a class="btn btn-dark" asp-action="Index">Back to List</a>
+            </form>
+        </div>
+    </div>
+
+        </div>
+    </div>

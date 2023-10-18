@@ -1,0 +1,226 @@
+﻿@model ListeRamassage
+@{
+    Layout = "~/Views/Shared/_LayoutLivreur.cshtml";
+    int op = 0;
+}
+@{
+    if (Model.Etat == "Completed")
+    {
+        <div class="alert alert-primary mt-2" role="alert">
+            This List Is successfuly Done !
+       <strong>    You Can't Change ETAT </strong> 
+        </div>
+    }
+}
+
+
+<h1 class="m-2 text-center">
+    List Colis @Model.Id
+</h1>
+<div class="row m-2">
+    <div class="col">
+        <div class=card>
+            <div class="card-header">
+                <div class="card-title text-center">
+                    List Colis
+                </div>
+            </div>
+            <div class=card-body>
+                <div class=col>
+                    <div class=card> <span class="text-center"> Colis Encours : @ViewBag.ListColisEnvoyeForList </span></div>
+                </div>
+                <div class=col>
+                    <div class=card><span class="text-center"> Colis Livre :@ViewBag.ListColisLivreForList </span></div>
+                </div>
+                <div class=col>
+                    <div class=card> <span class="text-center"> Colis Retourne/Annule :@ViewBag.ListColisRetourneForList </span> </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col">
+        <div class=card>
+            <div class="card-header">
+                <div class="card-title text-center">
+                    Facture
+                </div>
+            </div>
+            <div class=card-body>
+                <div class=col>
+                    <div class=card> <span class="text-center"> Totale de colis Livre : @ViewBag.totalAmount </span></div>
+                </div>
+                @*<div class=col>
+                    <div class=card><span class="text-center"> Frais De Livraison  :@ViewBag.ListColisLivreForList </span></div>
+                    </div>
+                    <div class=col>
+                    <div class=card> <span class="text-center"> Colis Retourne/Annule :@ViewBag.ListColisRetourneForList </span> </div>
+                    </div>*@
+            </div>
+
+        </div>
+    </div>
+    <div class="col">
+        <div class=card>
+            <div class="card-header">
+                <div class="card-title text-center">
+                    Information  Liste Ramassage
+                </div>
+            </div>
+            <div class=card-body>
+                Etat : @Model.Etat <br />
+                Ville : @Model.Ville.Name
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="table-responsive m-2">
+    <table id="myTable" class=" table table-bordered table-striped" data-order='[[ 0, "desc" ]]' data-page-length='25'>
+        <thead>
+            <tr>
+                <th>Id</th>
+
+                <th>Name </th>
+                <th>Name  Client </th>
+                <th>Price </th>
+                <th> Phone Number</th>
+                <th> Ville </th>
+                <th>  Adresse </th>
+                <th> User </th>
+                <th> Etat </th>
+                 <th> Comment </th>
+            </tr>
+
+
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.ListColisForListId)
+            {
+                <tr>
+                    <td>
+                        @item.id
+                    </td>
+
+                    <td>
+                        @item.Numero_Colis
+                    </td>
+                    <td>
+                        @item.Client.NomComplet
+                    </td>
+                    <td>
+                        @item.Prix
+                    </td>
+                    <td>
+                        @item.Client.Telephone
+                    </td>
+                    <td>
+                        @item.Client.Ville.Name
+                    </td>
+                    <td>
+                        @item.Client.adresse
+                    </td>
+                    <td>
+                        @item.User.UserName
+                    </td>
+                    <td>
+                        @{
+                            var tt = @item.Etat;
+                            var ids = @item.id;
+
+                            op = op + 1;
+                        }
+                  
+                        <select id="Select"  name="@op" class="form-select-lg selectx " aria-label="Default select example" asp-for="@tt" onchange="te(@ids,this)">
+
+                            <option value="Livre">Livre</option>
+                            <option value="Envoye">Envoye</option>
+                            <option value="Retourne">Retourne</option>
+                            <option value="Annule">Annule</option>
+                        </select>
+                    </td>
+                    <td>
+                 <button class="btn btn-outline-dark" onclick="ShowComment('@Url.Action("CreateComment","Comment",new{id=@item.id},Context.Request.Scheme)') " >
+                     Add Comment 
+                 </button>
+                 <button class="btn btn-outline-info" onclick="Show(@item.id)">
+                   Show  <span class="badge badge-info">@item.Comments.Count</span>    
+                 </button>
+                 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="placehere" >
+   
+</div>
+
+
+ <div class="modal" tabindex="-1" role="dialog" id="pop">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Comment</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="SaveComment()" class="btn btn-primary" data-bs-save="modal">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<a asp-action="listeramassage" asp-controller="Livreur" class="btn btn-dark">Back to List</a>
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+<script src="~/js/site.js"></script>
+@*@section DtColis{*@
+<script>
+
+               $(document).ready( function () {
+
+    $('#myTable').DataTable();
+
+      let selectx=document.getElementsByTagName("select");
+      console.log(selectx)
+
+           var etat = "@Model.Etat";
+               console.log(etat);
+
+               if( etat === "Completed")
+               {
+           
+                   console.log("dkhlna ");
+                           console.log(document.getElementsByTagName("select").length);
+                   for (let i = 1; i < document.getElementsByTagName("select").length; i++) {
+                 document.getElementsByTagName("select")[i].disabled=true;
+                }
+               }
+                  if( etat === "En cours")
+               {
+           
+                   console.log("dkhlna ");
+                    console.log(document.getElementsByTagName("select").length);
+                   for (let i = 1; i < document.getElementsByTagName("select").length; i++) {
+                 document.getElementsByTagName("select")[i].disabled=true;
+                }
+       
+               }
+               
+
+
+      } );
+     
+</script>
+

@@ -1,0 +1,540 @@
+﻿@model DetailFactureViewModel
+ @{
+    ViewData["Title"] = "All Facture";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+
+}
+@*@if (Model.Recu_Paiement != null && Model.Recu_Paiement.Length > 0)
+    {
+    string base64Image = Convert.ToBase64String(Model.Recu_Paiement);
+    <img width="600 px" height="300 px" src="data:image/png;base64,@base64Image" alt="Saved Image" />
+    }*@
+
+<form asp-action="edit" asp-controller="Facture" method="post">
+    <input asp-for="fct.Id" hidden />
+
+    <div class="d-flex justify-content-between align-items-center my-2 ">
+
+        <h1 style="color:#001f3f;"> Detail @Model.fct.Nom </h1>
+        <a class="btn btn-outline-primary mb-2" asp-action="Print" asp-controller="Facture" asp-route-id="@Context.Request.RouteValues["id"]" target="_blank">
+            Telecharger  pdf <i class="bi bi-arrow-down-circle-fill"></i>
+        </a>
+    </div>
+    <div class="card mt-2">
+
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>User :</th>
+                            <td>    <strong>  @Model.fct.User.UserName </strong></td>
+                        </tr>
+                        <tr>
+                            <th>Type :</th>
+                            <td>
+                                <select asp-for="fct.Type">
+                                    <option value=@null>
+                                        ----
+                                    </option>
+                                    <option value="En cours">
+                                        En cours
+                                    </option>
+                                    <option value=Livre>
+                                        Livre
+                                    </option>
+                                    <option value=Retourne>
+                                        Retourne
+                                    </option>
+
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Statut :</th>
+                            <td>
+                                <select asp-for="fct.Statut" id="statut">
+                                    <option value=@null>
+                                        ----
+                                    </option>
+                                    <option value="Non Paye">
+                                        Non Paye
+                                    </option>
+                                    <option value=Paye>
+                                        Paye
+                                    </option>
+
+
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Livreur :</th>
+                            <td>
+                                <select asp-for="fct.LivreurId">
+                                    <option value=null>
+                                        ----
+                                    </option>
+                                    @foreach (var item in Model.ListLivreur)
+                                    {
+                                        <option value=@item.Id>
+                                            @item.Name
+                                        </option>
+
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col">
+                     <div class="card">
+                        <div class="card-body">
+
+                            <div>
+                                @{
+                                    if (Model.fct.Recu_PaiementId != null)
+                                    {
+                                        <div class="card m-1 bg-dark text-white">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        @Model.fct.Recu_Paiement.Nom
+                                                    </div>
+                                                    <div>
+                                                        <a class="btn  btn-success btn-sm m-1"
+                                                           href="@Url.Action("DownloadRecu", "Facture", new { fileName = Model.fct.Recu_Paiement.Chemin })">
+                                                            Telecharger  Recu  <i class="bi bi-arrow-down-circle-fill"></i>
+                                                        </a>
+                                                        <a class="btn btn-success btn-sm m-1 " onclick="ShowRecu('@Url.Action("VoirRecu", "Facture")?Chemin=@Model.fct.Recu_Paiement.Chemin')">
+                                                            Voir Recu <i class="bi bi-eye-fill"></i>
+                                                        </a>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+
+
+                            <a class="btn btn-outline-primary btn-sm mt-2" onclick="Popup2('@Url.Action("UploadRecu", "Facture", new { id = @Context.Request.RouteValues["id"] }, Context.Request.Scheme)')">
+                                <i class="bi bi-upload"></i> Upload De recu
+                            </a> <br />
+
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            @{
+
+
+                if (User.IsInRole("COMPTABLE"))
+                {
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-outline-success">
+                                Submit
+                            </button>
+
+                        </div>
+
+                    </div>
+                }
+
+            }
+            <br />
+            <div class="alert alert-info">
+                comptable is only can edit information !
+            </div>
+           
+
+
+        </div>
+
+    </div>
+</form>
+<br />
+
+
+
+
+
+<div id="placehere">
+    <div class="card">
+
+        <div class="card-body">
+            <div class=container>
+                <div class="row">
+                    <div class="col">
+                        <h2>Total : @Model.fct.Total</h2>
+                    </div>
+                    <div class="col">
+                        <h2>Frais : @Model.fct.Frais</h2>
+                    </div>
+                    <div class="col">
+                        <h2>Net : @Model.fct.Net</h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <hr />
+
+
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            List Colis Facture
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table id="myTable" class="table">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Name Client
+                            </th>
+                            <th>
+                                PhoneNumber Client
+                            </th>
+                            <th>
+                                Ville
+                            </th>
+                            <th>
+                                Adresse
+                            </th>
+                            <th>
+                                Prix
+                            </th>
+                            <th>
+                                Etat
+                            </th>
+                            <th>
+                                Statut
+                            </th>
+                            <th>
+                                Date Creation
+                            </th>
+
+                            <th>
+                                USER
+                            </th>
+
+                            <th>
+                                Livreur
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListColisFacture != null)
+                        {
+                            @foreach (var item in Model.ListColisFacture)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.id
+                                    </td>
+                                    <td>
+                                        @item.Client.NomComplet
+
+                                    </td>
+                                    <td>
+                                        @item.Client.Telephone
+                                    </td>
+                                    <td>
+                                        @item.Client.Ville.Name
+                                    </td>
+                                    <td>
+                                        @item.Client.adresse
+                                    </td>
+                                    <td>
+                                        @item.Prix
+                                    </td>
+                                    <td>
+                                        @{
+                                            if (item.Etat == "Livre")
+                                            {
+                                                <a class="badge badge-success text-white">@item.Etat</a>
+                                            }
+                                            else
+                                            {
+                                                @item.Etat
+                                            }
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                        @item.Statut
+                                    </td>
+
+                                    <td>
+                                        @item.Date_creation
+                                    </td>
+                                    <td>
+                                        @item.User.UserName
+                                    </td>
+
+                                    <td>
+                                        @item.ListeRamassage.Livreur.User.UserName
+                                    </td>
+
+
+                                    <td>
+                                        <button class="btn btn-danger ajt" onclick="supprimer(@item.id,@Context.Request.RouteValues["id"])">Supprimer </button>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <br />
+
+    <div class="card">
+        <div class="card-header">
+            List Colis Non Facture
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Name Client
+                            </th>
+                            <th>
+                                PhoneNumber Client
+                            </th>
+                            <th>
+                                Ville
+                            </th>
+                            <th>
+                                Adresse
+                            </th>
+                            <th>
+                                Prix
+                            </th>
+                            <th>
+                                Etat
+                            </th>
+                            <th>
+                                Statut
+                            </th>
+                            <th>
+                                Date Creation
+                            </th>
+
+                            <th>
+                                USER
+                            </th>
+
+                            <th>
+                                Livreur
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.ListColisNonFacture != null)
+                        {
+                            @foreach (var item in Model.ListColisNonFacture)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.id
+                                    </td>
+                                    <td>
+                                        @item.Client.NomComplet
+
+                                    </td>
+                                    <td>
+                                        @item.Client.Telephone
+                                    </td>
+                                    <td>
+                                        @item.Client.Ville.Name
+                                    </td>
+                                    <td>
+                                        @item.Client.adresse
+                                    </td>
+                                    <td>
+                                        @item.Prix
+                                    </td>
+                                    <td>
+                                        @{
+                                            if (item.Etat == "Livre")
+                                            {
+                                                <a class="badge badge-success text-white">@item.Etat</a>
+                                            }
+                                            else
+                                            {
+                                                @item.Etat
+                                            }
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                        @item.Statut
+                                    </td>
+
+                                    <td>
+                                        @item.Date_creation
+                                    </td>
+                                    <td>
+                                        @item.User.UserName
+                                    </td>
+
+                                    <td>
+                                        @item.ListeRamassage.Livreur.User.UserName
+                                    </td>
+
+
+                                    <td>
+                                        <button onclick="ajouter(@item.id,@Model.fct.Id)" class="ajt btn btn-success ">Ajouter</button>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<br />
+<a asp-action="index" class="btn btn-dark"> Back To Factures</a>
+<div class="modal" tabindex="-1" role="dialog" id="pop">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Afficher Recu</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="pop2">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Recu</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="uploadrecu()" class="btn btn-primary" data-bs-save="modal">Submit</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/JsFacture.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+    $(document).ready(function($)
+    {
+        if( document.getElementById("statut").value === "Paye"){
+            console.log("Paye");
+            let sh=document.getElementsByClassName("ajt").length;
+            console.log(sh);
+          for (let i = 0; i < sh; i++)
+          {
+              console.log( document.getElementsByClassName("ajt")[i]);
+                   document.getElementsByClassName("ajt")[i].disabled="true";
+
+                       }
+
+        }else{}
+
+
+    });
+</script>
+
+
+
+
+
+
+<script src="~/lib/jquery/jquery.js"></script>
+@*@section DtColis{*@
+<script>
+
+             $(document).ready( function () {
+        let x = "@Model.fct.Statut";
+
+                 if(x==="Paye"){
+                        let s=document.getElementById("statut");
+                        let userx=document.getElementById("user");
+                        s.disabled=true;
+                        userx.disabled=true;
+                 }
+
+
+        $('#myTable').DataTable();
+    } );
+
+</script>
+
+
+
+
+
+
+
+
+

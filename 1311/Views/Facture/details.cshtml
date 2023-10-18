@@ -1,0 +1,125 @@
+﻿@model Facture
+<div class="container">
+    <div class="card m-3 shadow">
+    <div class="row ">
+        
+
+        
+        <div class="col justify-content-center d-flex">
+           <h2> Totale : @Model.Total</h2>
+        </div>
+         <div class="col justify-content-center d-flex"> 
+           <h2>  Frais : @Model.Frais </h2>
+        </div>
+         <div class="col justify-content-center d-flex">
+           <h2>  Net : @Model.Net </h2>
+        </div>
+
+    </div>
+ </div>
+    <div class="row">
+        <div class="card  shadow p-3">
+            <div class="card-header">
+                <div class="card-title">
+                    List Colis
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped ">
+                         <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Nom Colis
+                            </th>
+                            <th>
+                                Name Client
+                            </th>
+                            <th>
+                                Phone Number Client
+                            </th>
+                            <th>
+                                Ville
+                            </th>
+                            <th>
+                                Adresse
+                            </th>
+                            <th>
+                                Prix
+                            </th>
+                            <th>
+                                Etat
+                            </th>
+                            <th>
+                                Statut
+                            </th>
+                            <th>
+                                Date Creation
+                            </th>
+
+                          
+                        </tr>
+                    </thead>
+                     <tbody>
+                        @if (ViewBag.ListColisFacture != null)
+                        {
+                            @foreach (var item in ViewBag.ListColisFacture)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.id
+                                    </td>
+                                    <td>
+                                        @item.Numero_Colis
+                                    </td>
+                                    <td>
+                                        @item.Client.NomComplet
+
+                                    </td>
+                                    <td>
+                                        @item.Client.Telephone
+                                    </td>
+                                    <td>
+                                        @item.Client.Ville.Name
+                                    </td>
+                                    <td>
+                                        @item.Client.adresse
+                                    </td>
+                                    <td>
+                                        @item.Prix
+                                    </td>
+                                    <td>
+                                        @{
+                                            if (item.Etat == "Livre")
+                                            {
+                                                <a class="text-success">@item.Etat</a>
+                                            }
+                                            else
+                                            {
+                                                @item.Etat
+                                            }
+                                        }
+
+
+                                    </td>
+                                    <td class="text-success">
+                                        @item.Statut
+                                    </td>
+
+                                    <td>
+                                        @item.Date_creation
+                                    </td>
+                                    
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

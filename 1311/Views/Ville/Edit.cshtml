@@ -1,0 +1,53 @@
+﻿@model Ville
+
+ @{
+        ViewData["Title"] = "Edit";
+         Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    }
+
+   
+
+    
+    <hr />
+    <div class="card">
+        <div class="card-header">
+            <h4>Modifier Ville</h4>
+        </div>
+        <div class="card-body">
+             <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" asp-controller="ville" method="post">
+
+                  <input type="text" class="form-control" asp-for="Id" disabled />
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input type="text" class="form-control" asp-for="Name" />
+
+                </div>
+                @*<div class="form-group">
+                    <label asp-for="Statut"></label>
+                    <input type="text" class="form-control" asp-for="Statut" />
+
+                </div>*@
+                <br />
+                <div class="custom-control custom-switch">
+  <input asp-for="Statut" type="checkbox" class="custom-control-input" id="customSwitches">
+  <label asp-for="Statut" class=" custom-control-label" for="customSwitches"></label>
+</div>
+              
+<br/>
+                <input type="submit" class="btn btn-success" value="Submit" />
+                    <a class="btn btn-dark" asp-action="all">Back to List</a>
+            </form>
+        </div>
+    </div>
+
+        </div>
+
+    </div>
+
+   
+    <div>
+    
+    </div>

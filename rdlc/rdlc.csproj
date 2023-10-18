@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FDC592EF-73F9-4F94-A919-B28F4F9FE27D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>rdlc</RootNamespace>
+    <AssemblyName>rdlc</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="dsBonsLivraison.cs">
+      <DependentUpon>dsBonsLivraison.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsBonsLivraison.Designer.cs">
+      <DependentUpon>dsBonsLivraison.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dsBonsLivraison1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsBonsLivraison.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsFacture.cs">
+      <DependentUpon>dsFacture.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsFacture.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsFacture.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsSticker.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsSticker.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsStickers.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsStickers.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dsListeRamassage.cs">
+      <DependentUpon>dsListeRamassage.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsListeRamassage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsListeRamassage.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="dsListe.rdlc" />
+    <EmbeddedResource Include="Facture.rdlc" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Sticker.rdlc" />
+    <EmbeddedResource Include="stickers.rdlc" />
+    <None Include="dsBonsLivraison.xsc">
+      <DependentUpon>dsBonsLivraison.xsd</DependentUpon>
+    </None>
+    <None Include="dsBonsLivraison.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBonsLivraison1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dsBonsLivraison.xss">
+      <DependentUpon>dsBonsLivraison.xsd</DependentUpon>
+    </None>
+    <None Include="dsFacture.xsc">
+      <DependentUpon>dsFacture.xsd</DependentUpon>
+    </None>
+    <None Include="dsFacture.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsFacture.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsFacture.xss">
+      <DependentUpon>dsFacture.xsd</DependentUpon>
+    </None>
+    <None Include="dsSticker.xsc">
+      <DependentUpon>dsSticker.xsd</DependentUpon>
+    </None>
+    <None Include="dsSticker.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsSticker.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsSticker.xss">
+      <DependentUpon>dsSticker.xsd</DependentUpon>
+    </None>
+    <None Include="dsStickers.xsc">
+      <DependentUpon>dsStickers.xsd</DependentUpon>
+    </None>
+    <None Include="dsStickers.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsStickers.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsStickers.xss">
+      <DependentUpon>dsStickers.xsd</DependentUpon>
+    </None>
+    <None Include="dsListeRamassage.xsc">
+      <DependentUpon>dsListeRamassage.xsd</DependentUpon>
+    </None>
+    <None Include="dsListeRamassage.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsListeRamassage.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsListeRamassage.xss">
+      <DependentUpon>dsListeRamassage.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

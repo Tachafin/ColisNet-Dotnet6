@@ -1,0 +1,226 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = " Details BonsLivraison";
+}
+
+
+
+<div class="container  mt-4">
+
+
+
+    <div class="col-md-12 text-center">
+        <a class="btn btn-info  " target="_blank" asp-controller="bonslivraison" asp-route-id="@Context.Request.RouteValues["id"]" asp-action="Print">
+            <i class="bi bi-arrow-down-circle mr-1"></i>    Print Bons Livraison  PDF
+        </a>
+
+    </div>
+</div>
+
+
+<hr />
+<div id="placehere">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Colis En Attente de ramassage</h1>
+        </div>
+
+        <div class=" card-body" id="studenteForm">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            nom
+                        </th>
+                        <th>
+                            prix
+                        </th>
+                        <th>
+                            Client Nom
+                        </th>
+                        <th>
+                            Telephone
+                        </th>
+                        <th>
+                            ville - Adresse
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.coulisnull)
+                    {
+                        <tr>
+
+                            <td>@item.Numero_Colis</td>
+
+
+                            <td>@item.Prix</td>
+
+
+                            <td>@item.Client.NomComplet</td>
+                            <td>@item.Client.Telephone</td>
+                            <td>@item.Client.Ville.Name - @item.Client.adresse </td>
+
+
+
+                            <td>
+
+
+                                <a class="btn btn-success" onclick="submitStudent(@item.id,@Context.Request.RouteValues["id"])" @*asp-action="Ajouter" asp-route-id="@item.id" asp-route-tr="@Context.Request.RouteValues["id"]"*@>Ajouter</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <br />
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Bons Livraison</h1>
+        </div>
+
+        <div class=" card-body">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            nom
+                        </th>
+                        <th>
+                            prix
+                        </th>
+                        <th>
+                            Client Nom
+                        </th>
+                        <th>
+                            Telephone
+                        </th>
+                        <th>
+                            ville - Adresse
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.coulistrue)
+                    {
+                        <tr>
+
+                            <td>@item.Numero_Colis</td>
+
+
+                            <td>@item.Prix</td>
+
+
+                            <td>@item.Client.NomComplet</td>
+                            <td>@item.Client.Telephone</td>
+                            <td>@item.Client.Ville.Name - @item.Client.adresse </td>
+
+
+
+                            <td>
+
+                                <a class="btn btn-danger" onclick="RemoveColis(@item.id,@Context.Request.RouteValues["id"])" @*asp-action="Supprimer" asp-route-id="@item.id" asp-route-tr="@Context.Request.RouteValues["id"]"*@>Supprimer</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+
+            function RemoveColis(a,b) {
+           val1 = a;
+           val2 = b;
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/bonslivraison/"+a+"/Supprimer/"+b,
+            data: {id: val1, tr: val2},
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (result) {
+                  ShowHint(val2);
+
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+    function submitStudent(a,b) {
+          val1 = a;
+        val2 = b;
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/bonslivraison/"+a+"/ajouter/"+b,
+            data: {id: val1, tr: val2},
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (result) {
+                  ShowHint(val2);
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+
+    function ShowHint(ids){
+        $(document).ready(function(){
+            $.ajax({
+                url:"/DetailsTable/"+ids,
+                data:{xx:ids},
+                method:'GET',
+                cache:false,
+                success: function(response){
+                    $('#placehere').html(response);
+                }
+
+
+
+            });
+        });
+
+
+
+    }
+
+
+
+</script>

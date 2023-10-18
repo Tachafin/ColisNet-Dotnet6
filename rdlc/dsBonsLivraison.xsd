@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsBonsLivraison" targetNamespace="http://tempuri.org/dsBonsLivraison.xsd" xmlns:mstns="http://tempuri.org/dsBonsLivraison.xsd" xmlns="http://tempuri.org/dsBonsLivraison.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsBonsLivraison" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsBonsLivraison" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsBonsLivraison">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dsBonsLivraison" msprop:Generator_RowEvHandlerName="dsBonsLivraisonRowChangeEventHandler" msprop:Generator_RowDeletedName="dsBonsLivraisonRowDeleted" msprop:Generator_RowDeletingName="dsBonsLivraisonRowDeleting" msprop:Generator_RowEvArgName="dsBonsLivraisonRowChangeEvent" msprop:Generator_TablePropName="_dsBonsLivraison" msprop:Generator_RowChangedName="dsBonsLivraisonRowChanged" msprop:Generator_RowChangingName="dsBonsLivraisonRowChanging" msprop:Generator_TableClassName="dsBonsLivraisonDataTable" msprop:Generator_RowClassName="dsBonsLivraisonRow" msprop:Generator_TableVarName="tabledsBonsLivraison" msprop:Generator_UserTableName="dsBonsLivraison">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Numero_Colis" msprop:Generator_ColumnPropNameInRow="Numero_Colis" msprop:Generator_ColumnPropNameInTable="Numero_ColisColumn" msprop:Generator_ColumnVarNameInTable="columnNumero_Colis" msprop:Generator_UserColumnName="Numero_Colis" type="xs:string" minOccurs="0" />
+              <xs:element name="Prix" msprop:Generator_ColumnPropNameInRow="Prix" msprop:Generator_ColumnPropNameInTable="PrixColumn" msprop:Generator_ColumnVarNameInTable="columnPrix" msprop:Generator_UserColumnName="Prix" type="xs:string" minOccurs="0" />
+              <xs:element name="NomComplet" msprop:Generator_ColumnPropNameInRow="NomComplet" msprop:Generator_ColumnPropNameInTable="NomCompletColumn" msprop:Generator_ColumnVarNameInTable="columnNomComplet" msprop:Generator_UserColumnName="NomComplet" type="xs:string" minOccurs="0" />
+              <xs:element name="ville" msprop:Generator_ColumnPropNameInRow="ville" msprop:Generator_ColumnPropNameInTable="villeColumn" msprop:Generator_ColumnVarNameInTable="columnville" msprop:Generator_UserColumnName="ville" type="xs:string" minOccurs="0" />
+              <xs:element name="Telephone" msprop:Generator_ColumnPropNameInRow="Telephone" msprop:Generator_ColumnPropNameInTable="TelephoneColumn" msprop:Generator_ColumnVarNameInTable="columnTelephone" msprop:Generator_UserColumnName="Telephone" type="xs:string" minOccurs="0" />
+              <xs:element name="adresse" msprop:Generator_ColumnPropNameInRow="adresse" msprop:Generator_ColumnPropNameInTable="adresseColumn" msprop:Generator_ColumnVarNameInTable="columnadresse" msprop:Generator_UserColumnName="adresse" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

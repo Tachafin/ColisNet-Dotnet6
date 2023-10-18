@@ -1,0 +1,98 @@
+﻿@model _1311.Models.Reclamation
+
+@{
+    ViewData["Title"] = "Edit ";
+    Layout ="~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="card mt-4">
+    <div class="card-body">
+
+  
+
+
+<div class="row">
+    <div class="col-md-4">
+         
+        <div class="card">
+            <div class="card-header">
+              <h1 class="text-center">  INFORMATION CLIENT</h1>
+            </div>
+           
+        <div class="card-body">
+             
+            <form   asp-action="Edit" asp-controller="reclamation" method="post">
+            <input asp-for="Id" hidden />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input disabled type="text" class="form-control" asp-for="Name" />
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Sujet"></label>
+                <input disabled type="text" class="form-control" asp-for="Sujet" />
+
+            </div>
+          
+                   
+
+                
+
+            <div class="form-group">
+                <label asp-for="Message"></label>
+                <input disabled type="text" class="form-control" asp-for="Message" />
+                <span class="small text-danger" asp-validation-for="Message"></span>
+
+            </div>
+            <div class="form-group">
+                   
+                         <label asp-for="Reponse"></label>
+                <input type="text" class="form-control" asp-for="Reponse" />
+                <span class="small text-danger" asp-validation-for="Reponse"></span>
+
+           
+                    
+             </div>
+                 <div class="form-group">
+                       
+                             <div class="custom-control custom-switch">
+ <label asp-for=Statut></label>
+                                    @if(@Model.Statut == false)
+                                    {
+                                        <span class="small text-danger" >NON REPONSE</span>
+                                    }
+                                    else{
+                                         <span class="small text-success" > REPONSE SUCESS</span>
+                                    }
+                                </div>
+                            
+                        
+                       
+
+           
+                    
+             </div>
+            <input type="submit" class="btn btn-primary" value="Repondre" />
+              <a class="btn btn-dark" asp-action="all">Back to List</a>
+            </form>
+        </div>
+
+       
+
+       
+
+
+
+           
+        
+        </div>
+         
+    </div>
+
+ 
+<div>
+ 
+</div>

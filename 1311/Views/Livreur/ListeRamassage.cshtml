@@ -1,0 +1,69 @@
+﻿@model IEnumerable<_1311.Models.ListeRamassage>
+@{
+   Layout = "~/Views/Shared/_LayoutLivreur.cshtml";
+}
+<h1 class="m-2">Liste Ramassage </h1>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="myTable" >
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Ville </th>
+                                <th>Date creation  </th>
+                                <th>Nb Colis</th>
+                                 <th>Etat</th> 
+                                 <th>Actions</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                             @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Id
+                                </td>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @item.Ville.Name
+                                </td>
+
+                                <td>
+                                    @item.DateCreation
+                                </td>
+                                <td>
+                                <span class="badge badge-dark">@item.Colis.Count</span>    
+                                </td>
+                                <td>
+                                 @if(item.Etat=="En cours")
+                            {
+                                   <h6>  <a class="badge bg-secondary " >@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                            }
+                              else if(item.Etat == "Envoye")
+                                {
+                                    <h6>  <a class="badge bg-warning text-dark " >@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+                                  else if(item.Etat == "Completed")
+                                {
+                                    <h6>  <a class="badge bg-success text-dark " >@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                                }
+                                </td>
+                                <td>
+                                   <a class="btn btn-outline-info" asp-action="Show" asp-route-id="@item.Id" asp-controller="Livreur">Show ></a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

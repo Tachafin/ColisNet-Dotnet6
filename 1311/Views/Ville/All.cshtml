@@ -1,0 +1,89 @@
+﻿@model List<Ville>
+@{
+    ViewData["Title"] = "All Ville";
+    Layout ="~/Views/Shared/_LayoutAdmin.cshtml";
+    
+    
+    }
+
+
+     <h1> List Ville</h1>
+@{
+    if(User.IsInRole("Super Admin"))
+    {
+         <a asp-action="create" asp-controller="Ville" class="btn btn-success"> <i class="bi bi-plus-circle"></i> Create Ville</a>
+    }
+    }
+    <hr/>
+   @* <div id="placehere"></div>*@
+    <div class="card mb-4 shadow @*p-3*@ mb-5 bg-white rounded" id="placehere">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                All Listes
+                            </div>
+                            <div class="card-body">
+                                <table id="myTable" class="table">
+                                    <thead>
+            <tr>
+                  <th>
+                    #
+                </th>
+                <th>
+                   Name 
+                </th>
+              <th>
+                   Statut 
+                </th>
+                
+              
+
+                <th>Edit</th>
+            </tr>
+        </thead>
+                       
+                                     <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name) 
+                    
+                </td>
+                <td>
+                            @if (item.Statut)
+                            {
+                                <span class="badge badge-success">ON</span>
+                            }
+                            else{
+                                <span class="badge badge-warning">OFF</span>
+                            }
+
+                </td>
+               
+
+                <td>
+                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    
+                </td>
+            </tr>
+    }
+        </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+
+
+                         <script src="~/lib/jquery/jquery.js"></script>
+   <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+     <script>
+         
+         $(document).ready( function () {
+         
+    $('#myTable').DataTable();
+} );
+        
+         </script>

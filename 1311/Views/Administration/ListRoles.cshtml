@@ -1,0 +1,51 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "ListRoles";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>ListRoles</h1>
+
+
+<a class="btn btn-success" asp-action="CreateRole">Create New</a>
+<hr />
+<div class="card  mb-4 shadow @*p-3*@ mb-5 bg-white rounded">
+    <div class="card-header">
+        List Roles
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                       
+                            <a class="btn btn-outline-info  " asp-action="EditRole" asp-route-id="@item.Id" style="text-decoration:none;"> Actions ></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

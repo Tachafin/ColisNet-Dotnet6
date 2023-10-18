@@ -1,0 +1,93 @@
+﻿@model RegisterLivreurViewModel
+
+    @{
+    ViewData["Title"] = "create Livreur";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<h1>Enregistrer un nouveau livreur</h1>
+
+
+<hr />
+
+<div class="card">
+     <div class="card-body"><form asp-action="create" asp-controller="Livreur" method="post">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Nom"></label>
+                <input type="text" class="form-control" asp-for="Nom" />
+                <span class="small text-danger" asp-validation-for="Nom"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Prenom"></label>
+                <input type="text" class="form-control" asp-for="Prenom" />
+                <span class="small text-danger" asp-validation-for="Prenom"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Numero_Telephone"></label>
+                <input type="text" class="form-control" asp-for="Numero_Telephone" />
+                <span class="small text-danger" asp-validation-for="Numero_Telephone"></span>
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="VilleId"></label>
+                <select asp-for="VilleId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    @foreach (var item in ViewBag.ListVille)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Adresse"></label>
+                <input type="text" class="form-control" asp-for="Adresse" />
+                <span class="small text-danger" asp-validation-for="Adresse"></span>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input type="text" class="form-control" asp-for="Email" />
+                <span class="small text-danger" asp-validation-for="Email"></span>
+
+            </div>
+        </div>
+        <div class="col">
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input type="password" class="form-control" asp-for="Password" />
+                <span class="small text-danger" asp-validation-for="Password"></span>
+
+            </div>
+        </div>
+    </div>
+
+
+    <input type="submit" class="btn btn-primary" value="Enregistrer" />
+</form>
+     </div>
+
+</div>
+
+
+   
+<div>
+    <a class="mt-2 btn btn-outline-primary" asp-action="Index">Back to List</a>
+</div>
+

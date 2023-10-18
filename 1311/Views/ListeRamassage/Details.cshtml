@@ -1,0 +1,400 @@
+﻿@model DetailsListeRamassageViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="form-group">
+    <label asp-for="listRmassage.Livreur.Name">Livreur Name</label>
+    <div class="col-md-3">
+        <input disabled type="text" class="form-control" asp-for="listRmassage.Livreur.User.UserName" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label asp-for="listRmassage.Ville.Name">Ville Name</label>
+    <div class="col-md-3">
+        <input disabled type="text" class="form-control" asp-for="listRmassage.Ville.Name" />
+    </div>
+</div>
+<form asp-action="EditEtat" method="post">
+    <input type="hidden" asp-for="listRmassage.Id" />
+    <div class="form-group">
+        <label asp-for="listRmassage.Etat">Etat</label>
+        <div class="col-md-3">
+            <select asp-for="listRmassage.Etat" class="custom-select" id="selectx">
+
+                <option value="Envoye">Envoye</option>
+                <option value="En cours">En cours</option>
+                <option value="Completed">Completed</option>
+
+            </select>
+        </div>
+        <div class="form-group">
+            <hr />
+            <button type="submit" class=" btn btn-success">
+                Submit
+            </button>
+            <a class="btn btn-dark" asp-action="Index">Back to List</a>
+            <a class="btn btn-dark" target="_blank" asp-action="print" asp-controller="ListeRamassage" asp-route-id="@Context.Request.RouteValues["id"]"><i class="bi bi-printer"></i></a>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
+
+<div id="placehere">
+
+
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Colis Non Envoye</h1>
+        </div>
+
+        <div class=" card-body" id="studenteForm">
+
+            <span class="text-black-50 text-center">
+                Filtrer par <strong>Ville</strong>
+            </span>
+            <div class="row   mb-3">
+
+
+                <div class=" col-sm">
+
+
+
+                    <select class="form-select-lg bg-secondary text-white " id="select" aria-label=" Default select example ">
+                        <option value=@null selected>All City </option>
+                        @foreach (var item in Model.ListCity)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                    <button id="btnsubmit" type="button" class="btn btn-outline-success">
+                        Search
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table mt-2" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                nom
+                            </th>
+                            <th>
+                                prix
+                            </th>
+                            <th>
+                                Client Nom
+                            </th>
+                            <th>
+                                Telephone
+                            </th>
+                            <th>
+                                ville
+                            </th>
+                            <th>
+                                Date Creation
+                            </th>
+
+                            <th>
+                                User
+                            </th>
+                            <th>
+                                etat
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ListColisNullListe)
+                        {
+                            <tr>
+
+                                <td>@item.Numero_Colis</td>
+
+
+                                <td>@item.Prix</td>
+
+
+                                <td>@item.Client.NomComplet</td>
+                                <td>@item.Client.Telephone</td>
+                                <td>@item.Client.Ville.Name </td>
+                                <td>@item.Date_creation</td>
+
+                                <td>@item.User.UserName</td>
+                                <td>  <span class="badge badge-info">@item.Etat</span>    </td>
+                                <td>
+
+
+                                    <button class="btn btn-success btx" onclick="ajouter(@item.id,@Context.Request.RouteValues["id"])">Ajouter</button>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Liste Ramassage  </h1>
+        </div>
+
+        <div class=" card-body">
+            <div class="table-responsive">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                nom
+                            </th>
+                            <th>
+                                prix
+                            </th>
+                            <th>
+                                Client Nom
+                            </th>
+                            <th>
+                                Telephone
+                            </th>
+                            <th>
+                                ville
+                            </th>
+                            <th>
+                                Date Creation
+                            </th>
+
+                            <th>User</th>
+                            <th>etat</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.ListColis)
+                    {
+                        <tr>
+
+                            <td>@item.Numero_Colis</td>
+
+
+                            <td>@item.Prix</td>
+
+
+                            <td>@item.Client.NomComplet</td>
+                            <td>@item.Client.Telephone</td>
+                            <td>@item.Client.Ville.Name </td>
+                            <td>@item.Date_creation</td>
+
+                            <td>@item.User.UserName</td>
+                            <td>
+                                @if (@item.Etat == "Envoye")
+                                {
+                                    <span class="badge badge-info">
+                                        @item.Etat
+                                    </span>
+                                }
+                                @if (@item.Etat == "Livre")
+                                {
+                                    <span class="badge badge-success">
+                                        @item.Etat
+                                    </span>
+                                }
+                                @if (@item.Etat == "Retourne")
+                                {
+                                    <span class="badge badge-danger">
+                                        @item.Etat
+                                    </span>
+                                }
+                                @if (@item.Etat == "Annule")
+                                {
+                                    <span class="badge badge-danger">
+                                        @item.Etat
+                                    </span>
+                                }
+
+
+                            </td>
+                            <td>
+
+
+                                <button class="btn btn-danger btx " onclick="supprimer(@item.id,@Context.Request.RouteValues["id"])">Supprimer</button>
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+
+
+</div>
+
+
+
+
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#myTable').DataTable();
+
+        let btx = document.getElementsByClassName("btx");
+        console.log(btx);
+        console.log(btx.length);
+        var etat = "@Model.listRmassage.Etat";
+        console.log(etat);
+        console.log(document.getElementById("selectx").value);
+        if (document.getElementById("selectx").value === "Completed") {
+            for (let i = 0; i < btx.length; i++) {
+                btx[i].disabled = true;
+            }
+        }
+        if (document.getElementById("selectx").value === "Envoye") {
+            for (let i = 0; i < btx.length; i++) {
+                btx[i].disabled = true;
+            }
+        }
+
+
+    });
+
+
+    function supprimer(a, b) {
+        val1 = a;
+        val2 = b;
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/listeramassage/" + a + "/Supprimer/" + b,
+            data: { id: val1, tr: val2 },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (result) {
+                ShowHint(val2);
+
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+    function ajouter(a, b) {
+        val1 = a;
+        val2 = b;
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/listeramassage/" + a + "/ajouter/" + b,
+            data: { id: val1, tr: val2 },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (result) {
+                ShowHint(val2);
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+
+    function ShowHint(ids) {
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Detailsliste/" + ids,
+                data: { xx: ids },
+                method: 'GET',
+                cache: false,
+                success: function (response) {
+                    $('#placehere').html(response);
+                }
+
+
+
+            });
+        });
+
+
+
+    }
+
+    let btnsubmit = document.getElementById("btnsubmit");
+
+    btnsubmit.addEventListener("click", function () {
+        let select = document.getElementById("select");
+        let b = select.value;
+        console.log(b);
+        let a = @Context.Request.RouteValues["id"];
+        console.log(a);
+        var data = $("#placehere").serialize();
+        //console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/Detailsliste/" + a + "/" + b,
+            data: { id: a, villeid: b },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (response) {
+
+                $('#placehere').html(response);
+
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+
+            }
+        })
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

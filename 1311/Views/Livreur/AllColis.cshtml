@@ -1,0 +1,188 @@
+﻿@model IEnumerable<_1311.Models.Colis>
+
+@{
+    Layout = "~/Views/Shared/_LayoutLivreur.cshtml";
+}
+
+<div class="card m-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col mt-3 mb-3">
+                <i class="bi bi-person-circle p-3"></i>
+                <span style="color:#115173">Dashboard Livreur</span>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col">
+        <button onclick="check('')" type="button" class="btn btn-outline-dark btn-lg btn-block">
+            All Colis :<strong> @ViewBag.AllColis</strong> <i class="fas fa-angle-right float-right mt-1"></i>
+        </button>
+
+    </div>
+    <div class="col">
+        <button onclick="check('en cours')" type="button" class="btn btn-outline-info btn-lg btn-block">
+            Colis Encours  :<strong> @ViewBag.AllColisEncours</strong><i class="fas fa-angle-right float-right mt-1"></i>
+        </button>
+    </div>
+    <div class="col">
+        <button onclick="check('envoye')" type="button" class="btn btn-outline-warning btn-lg btn-block">
+            Colis Envoye  :<strong> @ViewBag.AllColisEnvoye</strong><i class="fas fa-angle-right float-right mt-1"></i>
+        </button>
+    </div>
+    <div class="col">
+        <button type="button" onclick="check('LIVRE')" class="btn btn-outline-success btn-lg btn-block">
+            Colis Livre  :<strong> @ViewBag.AllColisLivre</strong><i class="fas fa-angle-right float-right mt-1"></i>
+        </button>
+    </div>
+    <div class="col">
+        <button onclick="check('retourne')" type="button" class="btn btn-outline-danger btn-lg btn-block">
+            Colis Retourne  :<strong> @ViewBag.AllColisRetourne</strong><i class="fas fa-angle-right float-right mt-1"></i>
+        </button>
+    </div>
+
+</div>
+   <div class="card mt-3">
+       <div class="card-header bg-white">
+     <h4>    <i class="fas fa-table me-1"></i>   List Colis </h4>
+       </div>
+       <div class="card-body">
+           <div class="table-responsive">
+               <table id="myTable " class="table table-striped" data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                   <thead>
+                       <tr>
+                         <th>
+                            #
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Name Client
+                        </th>
+                        <th>
+                            PhoneNumber Client
+                        </th>
+                        <th>
+                            Ville | Adresse
+                        </th>
+
+                        <th>
+                            Prix
+                        </th>
+                        <th>
+                            Etat
+                        </th>
+                        <th>
+                            Statut
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+
+                        <th>
+                            USER
+                        </th>
+                        <th>
+                            Livreur
+                        </th>
+
+                        <th>Actions</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                         @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Numero_Colis)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.NomComplet)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.Telephone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.Ville.Name) |  @Html.DisplayFor(modelItem => item.Client.adresse)
+                        </td>
+                        @* <td>
+                            @Html.DisplayFor(modelItem => item.Client.adresse)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prix)
+                        </td>
+                        <td>
+                            @{
+                            if (item.Etat == "Livre")
+                            {
+                                <h6>  <a class="badge badge-success ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                            }
+                            else if (item.Etat == "En cours")
+                            {
+                                <h6>  <a class="badge bg-secondary ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                            }
+                            else if (item.Etat == "Retourne")
+                            {
+                                <h6>  <a class="badge bg-danger ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                            }
+                            else if (item.Etat == "Envoye")
+                            {
+                                <h6>  <a class="badge bg-warning text-dark ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                            }
+                            else if (item.Etat == "Annule")
+                            {
+                                <h6>  <a class="badge bg-danger ">@Html.DisplayFor(modelItem => item.Etat)</a> </h6>
+                            }
+                            }
+
+
+                        </td>
+                        <td>
+                            @{
+                            if (item.Statut == "Non Paye")
+                            {
+                                <h6>  <a class="badge badge-danger text-white ">@Html.DisplayFor(modelItem => item.Statut)</a> </h6>
+                            }
+                            else if (item.Statut == "Paye")
+                            {
+                                <h6>  <a class="badge badge-success text-white ">@Html.DisplayFor(modelItem => item.Statut)</a> </h6>
+                            }
+                            }
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_creation)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.UserName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ListeRamassage.Livreur.User.UserName)
+                        </td>
+
+
+                        <td>
+                            <a  asp-action="Show" asp-controller="Livreur" asp-route-id="@item.ListeRamassageId"  class="btn btn-primary"  >Show Liste ></a>
+
+                        </td>
+                    </tr>
+                    }
+                   </tbody>
+               </table>
+           </div>
+       </div>
+   </div>

@@ -1,0 +1,138 @@
+﻿
+@model dynamic
+@{
+       Layout = null;
+}
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+@{
+    ViewData["Title"] = " Details BonsLivraison";
+}
+<style>
+         body{
+          background-color:#EEF2F4;
+           font-family: 'Fredoka', sans-serif;
+         }
+         </style>
+<div class="" id="placehere">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1>Colis En Attente de ramassage</h1>
+            </div>
+
+            <div class=" card-body" id="studenteForm">
+
+                <table class="table" >
+                    <thead>
+                        <tr>
+                            <th>
+                                nom
+                            </th>
+                            <th>
+                                prix
+                            </th>
+                            <th>
+                                Client Nom
+                            </th>
+                            <th>
+                                Telephone
+                            </th>
+                            <th>
+                                ville - Adresse
+                            </th>
+
+
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.coulisnull)
+                        {
+                            <tr>
+
+                                <td>@item.Numero_Colis</td>
+
+
+                                <td>@item.Prix</td>
+
+
+                                <td>@item.Client.NomComplet</td>
+                                <td>@item.Client.Telephone</td>
+                                <td>@item.Client.Ville.Name - @item.Client.adresse </td>
+
+
+
+                                <td>
+
+
+                                    <a class="btn btn-success" onclick="submitStudent(@item.id,@Context.Request.RouteValues["id"])" @*asp-action="Ajouter" asp-route-id="@item.id" asp-route-tr="@Context.Request.RouteValues["id"]"*@>Ajouter</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <br />
+        <div class="card">
+            <div class="card-header text-center">
+                <h1>Bons Livraison</h1>
+            </div>
+
+            <div class=" card-body">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                nom
+                            </th>
+                            <th>
+                                prix
+                            </th>
+                            <th>
+                                Client Nom
+                            </th>
+                            <th>
+                                Telephone
+                            </th>
+                            <th>
+                                ville - Adresse
+                            </th>
+
+
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.coulistrue)
+                        {
+                            <tr>
+
+                                <td>@item.Numero_Colis</td>
+
+
+                                <td>@item.Prix</td>
+
+
+                                <td>@item.Client.NomComplet</td>
+                                <td>@item.Client.Telephone</td>
+                                <td>@item.Client.Ville.Name - @item.Client.adresse </td>
+
+
+
+                                <td>
+
+                                    <a class="btn btn-danger" asp-action="Supprimer" asp-route-id="@item.id" asp-route-tr="@Context.Request.RouteValues["id"]">Supprimer</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

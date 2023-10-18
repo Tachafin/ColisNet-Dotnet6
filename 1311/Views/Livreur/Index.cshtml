@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Livreur>
+@{
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container ">
+    <h1 class="ml-2">
+        Livreurs 
+    </h1>
+    <div class="m-4">
+        @if(User.IsInRole("Super Admin")){
+        <a asp-action="create" class="btn btn-success" asp-controller="Livreur"><i class="bi bi-plus-circle"></i> Create Livreur</a>
+       }
+        <hr />
+        <div class="card shadow @*p-3*@ mb-5 bg-white rounded">
+            <div class="card-header">
+                List Livreur
+            </div>
+            <div class="card-body">
+                <div class="table table-responsive">
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Id
+                                </th>
+                                <th>
+                                    UserName
+                                </th>
+                                <th>
+                                    Ville
+                                </th>
+                                <th>
+                                    Adresse
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Phone Number
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+
+                                <tr>
+                                    <td>
+                                        @item.Id
+                                    </td>
+                                    <td>
+                                        @item.User.UserName
+                                    </td>
+                                    <td>
+                                        @item.Ville.Name
+                                    </td>
+                                    <td>
+                                        @item.Adresse
+                                    </td>
+                                    <td>
+                                        @item.User.Email
+                                    </td>
+                                    <td>
+                                        @item.User.PhoneNumber
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id" asp-controller="Livreur">Editer</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>

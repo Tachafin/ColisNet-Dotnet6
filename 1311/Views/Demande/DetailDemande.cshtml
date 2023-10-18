@@ -1,0 +1,89 @@
+﻿@model List<Demande>
+
+
+    @{
+    ViewData["Title"] = "All Demande";
+    Layout =null;
+  
+    
+    }
+     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<div id="placehere">
+    <div class="card mb-4" id="placehere">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                              List Ramassage
+                            </div>
+
+                            <div class="card-body">
+                                <table id="myTable" class="table">
+                                    <thead>
+            <tr>
+                 <th>
+                    #
+                </th>
+                <th>
+                   Name 
+                </th>
+                <th>
+                   Date Creation 
+                </th>
+                <th>
+                   Resolu
+                </th>
+                <th>
+                     USER
+                </th>
+                <th>
+                    Livreur
+                </th>
+
+                <th>Actions</th>
+            </tr>
+        </thead>
+                                
+                                     <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                  <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom) 
+                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreation)
+                </td>
+                <td>
+                            @if (item.Resolu)
+                            {
+                                <span class="badge badge-success">GOOD</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">BAD</span>
+                            }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+             <td>
+                    @Html.DisplayFor(modelItem => item.Livreur.User.UserName)
+                </td>
+                
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Actions</a> 
+                    
+                </td>
+            </tr>
+    }
+        </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                        </div>

@@ -1,0 +1,389 @@
+﻿@model Facture
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<style>
+    body {
+        background-color: #EEF2F4;
+        font-family: 'Fredoka', sans-serif;
+    }
+</style>
+<br />
+
+@*<div class="container">*@
+<div id="ici">
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col">
+                    <h2>Total : @Model.Total</h2>
+                </div>
+                <div class="col">
+                    <h2>Frais : @Model.Frais</h2>
+                </div>
+                <div class="col">
+                    <h2>Net : @Model.Net</h2>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <hr />
+
+
+    <div class="card">
+        <div class="card-header bg-success">
+            List Colis Facture
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="myTable" class="table">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Name Client
+                            </th>
+                            <th>
+                                PhoneNumber Client
+                            </th>
+                            <th>
+                                Ville
+                            </th>
+                            <th>
+                                Adresse
+                            </th>
+                            <th>
+                                Prix
+                            </th>
+                            <th>
+                                Etat
+                            </th>
+                            <th>
+                                Statut
+                            </th>
+                            <th>
+                                Date Creation
+                            </th>
+
+                            <th>
+                                USER
+                            </th>
+
+                            <th>
+                                Livreur
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.ListColisFacture != null)
+                        {
+                            @foreach (var item in ViewBag.ListColisFacture)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.id
+                                    </td>
+                                    <td>
+                                        @item.Client.NomComplet
+
+                                    </td>
+                                    <td>
+                                        @item.Client.Telephone
+                                    </td>
+                                    <td>
+                                        @item.Client.Ville.Name
+                                    </td>
+                                    <td>
+                                        @item.Client.adresse
+                                    </td>
+                                    <td>
+                                        @item.Prix
+                                    </td>
+                                    <td>
+                                        @{
+                                            if (item.Etat == "LIVRE")
+                                            {
+                                                <a class="text-success">@item.Etat</a>
+                                            }
+                                            else
+                                            {
+                                                @item.Etat
+                                            }
+                                        }
+
+
+                                    </td>
+                                    <td>
+                                        @item.Statut)
+                                    </td>
+
+                                    <td>
+                                        @item.Date_creation
+                                    </td>
+                                    <td>
+                                        @item.User.UserName
+                                    </td>
+
+                                    <td>
+                                        @item.ListeRamassage.Livreur.User.UserName
+                                    </td>
+
+
+                                    <td>
+                                        <a class="btn btn-danger" onclick="supprimer(@item.id,@Context.Request.RouteValues["id"])">Supprimer </a>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <br />
+
+    <div class="card">
+        <div class="card-header">
+            List Colis
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+            <table id="myTable" class="table">
+
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Name Client
+                        </th>
+                        <th>
+                            PhoneNumber Client
+                        </th>
+                        <th>
+                            Ville
+                        </th>
+                        <th>
+                            Adresse
+                        </th>
+                        <th>
+                            Prix
+                        </th>
+                        <th>
+                            Etat
+                        </th>
+                        <th>
+                            Statut
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+
+                        <th>
+                            USER
+                        </th>
+
+                        <th>
+                            Livreur
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.ListColisNonFacture != null)
+                    {
+                        @foreach (var item in ViewBag.ListColisNonFacture)
+                        {
+                            <tr>
+                                <td>
+                                    @item.id
+                                </td>
+                                <td>
+                                    @item.Client.NomComplet
+
+                                </td>
+                                <td>
+                                    @item.Client.Telephone
+                                </td>
+                                <td>
+                                    @item.Client.Ville.Name
+                                </td>
+                                <td>
+                                    @item.Client.adresse
+                                </td>
+                                <td>
+                                    @item.Prix
+                                </td>
+                                <td>
+                                    @{
+                                        if (item.Etat == "LIVRE")
+                                        {
+                                            <a class="text-success">@item.Etat</a>
+                                        }
+                                        else
+                                        {
+                                            @item.Etat
+                                        }
+                                    }
+
+
+                                </td>
+                                <td>
+                                    @item.Statut
+                                </td>
+
+                                <td>
+                                    @item.Date_creation
+                                </td>
+                                <td>
+                                    @item.User.UserName
+                                </td>
+
+                                <td>
+                                    @item.ListeRamassage.Livreur.User.UserName
+                                </td>
+
+
+                                <td>
+                                    <a onclick="ajouter(@item.id,@Model.Id)" class="btn btn-success">Ajouter</a>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+@*</div>
+*@
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+
+
+            function supprimer(a,b) {
+           val1 = a;
+           val2 = b;
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/facture/"+a+"/Supprimer/"+b,
+            data: {id: val1, tr: val2},
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (result) {
+                  ShowHint(val2);
+
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+    function ajouter(a,b) {
+          val1 = a;
+          val2 = b;
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/facture/"+a+"/ajouter/"+b,
+            data: {id: val1, tr: val2},
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (result) {
+
+                  ShowHint(val2);
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+
+    function ShowHint(ids){
+        $(document).ready(function(){
+            $.ajax({
+                url:"/FactureDetails/"+ids,
+                data:{xx:ids},
+                method:'GET',
+                cache:false,
+                success: function(response){
+
+                    $('#ici').html(response);
+                }
+
+
+
+            });
+        });
+
+
+
+    }
+
+
+
+</script>
+
+
+
+@*@section DtColis{*@
+<script>
+
+             $(document).ready( function () {
+
+        $('#myTable').DataTable();
+    } );
+
+</script>
+
+
+
+
+
+
+
+
+
+

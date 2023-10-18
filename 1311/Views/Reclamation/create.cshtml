@@ -1,0 +1,50 @@
+﻿@model _1311.Models.Reclamation
+
+@{
+    ViewData["Title"] = "Ajouter Reclamation" ;
+}
+
+
+
+
+
+<div class="card mt-2">
+    <div class="card-header bg-white">
+      <h3>  Ajouter Reclamation </h3>
+
+    </div>
+    <div class="card-body">
+        <div class="row">
+    <div class="col-md-4">
+        <form asp-action="create" asp-controller="reclamation" method="post">
+
+
+            <div class="form-group">
+                <label asp-for="Sujet"></label>
+                <input type="text" class="form-control" asp-for="Sujet" />
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Message"></label>
+                <input type="text" class="form-control" asp-for="Message" />
+
+            </div>
+            
+
+
+
+            <input type="submit" class="btn btn-success" value="Enregistrer" /> <br /><br />
+            <a class="btn btn-dark " asp-action="Index">Retour</a>
+        </form>
+    </div>
+</div>
+    </div>
+
+</div>
+
+<br />
+<div>
+    
+</div>
+

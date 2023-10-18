@@ -1,0 +1,63 @@
+﻿@model Demande
+
+@{
+    ViewData["Title"] = "Edit Demande";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+<div class="card mt-2">
+
+    <div class="card-header bg-white mt-3 mb-3">
+        <h3>  Edit Demande de ramassage</h3>
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Edit" asp-controller="Demande" method="post">
+                    <div class="form-group">
+                        <label asp-for="Id"></label>
+                        <input class="form-control" disabled asp-for="Id" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Nom"></label>
+                        <input type="text" class="form-control" asp-for="Nom" />
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="User"></label>
+                        <input disabled type="text" class="form-control" asp-for="User.UserName" />
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Livreur"></label>
+                        <select asp-for="LivreurId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                            <option value="@null">
+                                Choose a item
+                            </option>
+                            @foreach (var item in ViewBag.ListLivreur)
+                            {
+                                <option value="@item.Id">@item.User.UserName</option>
+                            }
+
+
+                        </select>
+
+
+                    </div>
+
+
+
+                    <input type="submit" class="btn btn-outline-primary" value="Sauvegarder" />
+                    <a class="btn btn-dark ml-3" asp-action="All">Retourner au Liste</a>
+                </form>
+            </div>
+        </div>
+        <br />
+        <div>
+        </div>
+    </div>
+
+</div>

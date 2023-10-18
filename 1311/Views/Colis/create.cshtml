@@ -1,0 +1,108 @@
+﻿@model _1311.Models.Colis
+
+    @{
+    ViewData["Title"] = "Create Colis";
+    Layout = null;
+}
+
+
+
+
+
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@if (!string.IsNullOrEmpty(ViewBag.error))
+{
+    <div class="row">
+        <h2 class=" alert-danger">
+            @ViewBag.error
+        </h2>
+    </div>
+
+}
+<form method="post" id="frm">
+
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Client.NomComplet"></label>
+                <input type="text" class="form-control" asp-for="Client.NomComplet" />
+                <span class="small text-danger" asp-validation-for="Client.NomComplet"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Client.Telephone"></label>
+                <input type="text" class="form-control" asp-for="Client.Telephone" />
+                <span class="small text-danger" asp-validation-for="Client.Telephone"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Client.Ville"></label><br />
+                <select asp-for="Client.VilleId" class="form-select" aria-label="Default select example">
+                    <option value="@null">Choisir une ville</option>
+                    @foreach (var item in ViewBag.ListVille)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+
+
+                </select>
+                <span class="small text-danger" asp-validation-for="Client.Telephone"></span>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Client.adresse"></label>
+                <input type="text" class="form-control" asp-for="Client.adresse" />
+                <span class="small text-danger" asp-validation-for="Client.adresse"></span>
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Prix"></label>
+                <input type="text" class="form-control" asp-for="Prix" />
+                <span class="small text-danger" asp-validation-for="Prix"></span>
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check form-switch">
+                <label class="form-check-label" for="flexSwitchCheckChecked"> Autoriser l'ouverture du colis par le client ? </label> <br />
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Produit"></label>
+                <input type="text" class="form-control" asp-for="Produit" />
+                <span class="small text-danger" asp-validation-for="Produit"></span>
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Note"></label>
+                <input type="text" class="form-control" asp-for="Note" />
+                <span class="small text-danger" asp-validation-for="Note"></span>
+
+            </div>
+        </div>
+    </div>
+    
+
+</form>
+
+
+<script src="~/js/Client.js"></script>
+
+

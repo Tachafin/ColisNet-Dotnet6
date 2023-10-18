@@ -1,0 +1,164 @@
+﻿@model List<Facture>
+ @{
+    ViewData["Title"] = "All Facture";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+
+}
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+<h2 class="m-2">
+    Factures List <a class="btn btn-outline-primary">@Model.Count() </a>
+</h2>
+
+<p>
+    <a class="btn btn-outline-primary" onclick="Popup('@Url.Action("Create","Facture",null,Context.Request.Scheme)') "> <i class="bi bi-plus-circle mr-1"></i>  Nouveau Facture  </a>
+</p>
+
+    
+<hr />
+<div class="card mb-4" id="placehere">
+    <div class="card-header bg-white">
+        <i class="fas fa-table me-1"></i>
+        All Facture
+    </div>
+    <div class="card-body">
+        <div class="table table-responsive">
+            <table id="myTable" class="table table-striped" data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+                        <th>
+                            Totale
+                        </th>
+                        <th>
+                            Frais
+                        </th>
+                        <th>
+                            Net
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Statut
+                        </th>
+                        <th>
+                            User
+                        </th>
+                        <th>
+                            Livreur
+                        </th>
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nom)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateCreation)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Total)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Frais)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Net)
+                            </td>
+                            <td>
+                                @if (item.Type == "En cours")
+                                {
+                                    <h6>  <a class="badge bg-secondary ">@Html.DisplayFor(modelItem => item.Type)</a> </h6>
+                                }
+                                @if (item.Type == "Livre")
+                                {
+                                    <h6>  <a class="badge badge-success">@Html.DisplayFor(modelItem => item.Type)</a> </h6>
+                                }
+
+                            </td>
+                            <td>
+                                @if (item.Statut == "Non Paye")
+                                {
+                                    <h6>  <a class="badge bg-secondary ">@Html.DisplayFor(modelItem => item.Statut)</a> </h6>
+                                }
+                                @if (item.Statut == "Paye")
+                                {
+                                    <h6>  <a class="badge bg-success ">@Html.DisplayFor(modelItem => item.Statut)</a> </h6>
+                                }
+                            </td>
+
+                            <td>
+                                @if (item.UserId != null)
+                                {
+                                    <h5 class="badge badge-info">     @Html.DisplayFor(modelItem => item.User.UserName) </h5>
+
+                                }
+
+
+
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Livreur.Name)
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-primary" asp-action="Detail" asp-route-id="@item.Id">Actions</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="pop">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Creation nouveau Colis</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="savedatafacture()" class="btn btn-primary" data-bs-save="modal">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/JsFacture.js"></script>
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+

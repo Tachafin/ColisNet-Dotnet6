@@ -1,0 +1,148 @@
+﻿@model IEnumerable<_1311.Models.Colis>
+
+    @{
+    ViewData["Title"] = "ColisEnAttente";
+}
+<br />
+
+<h1>Colis En Attente de ramassage <span class="btn btn-outline-primary  "> @Model.Count() </span></h1>
+
+<p>
+    <a class="btn btn-outline-primary"  data-toggle="modal" data-target="#pop"
+       onclick="ShowPopUp('@Url.Action("Create","Colis",null,Context.Request.Scheme)') ">
+        <i class="bi bi-plus-circle mr-1"></i>  Nouveau colis
+    </a>
+</p>
+
+
+<div class="card shadow p-3">
+    <div class="table-responsive">
+        <table class="table table-striped" id="myTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Numero_Colis)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.NomComplet)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.Telephone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.Ville.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Client.adresse)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Prix)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date_creation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>
+
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Numero_Colis)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.NomComplet)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.Telephone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Client.Ville.Name)
+                        </td>
+                        <td>
+                            B
+                            @Html.DisplayFor(modelItem => item.Client.adresse)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prix)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date_creation)
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#pop2" 
+                           onclick="Popup('@Url.Action("ShowComment","Colis",new { id = item.id },Context.Request.Scheme)') ">
+                               <i class="bi bi-eye"></i> Afficher
+                            </button>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" class="btn btn-outline-success" asp-route-id="@item.id">Edit</a> |
+                            <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="pop">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h2>Creation d'un colis</h2>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="partical">
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-start">
+                <button type="button" onclick="sendFormData()" class="btn btn-primary" data-bs-save="modal">Submit</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="pop2">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Commentaires</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="partical">
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-start">
+              
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/JSColis.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+
+

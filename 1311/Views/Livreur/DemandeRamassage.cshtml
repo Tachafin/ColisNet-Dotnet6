@@ -1,0 +1,136 @@
+﻿@model List<Demande>
+ @{
+    Layout = "~/Views/Shared/_LayoutLivreur.cshtml";
+}
+
+
+<div class="card mt-3">
+    <div class="card-header">
+        <h1 class="mt-4">Demande Ramassage</h1>
+    </div>
+    <div class="card-body">
+        <div class="row m-2">
+            <div class="col">
+                <button class="btn btn-outline-dark" onclick="red(1)">
+                    Today Demande : @ViewBag.alltoday >
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-dark" onclick="red(2)">
+                    Today Demande Successfuly : @ViewBag.todaygood >
+                </button>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-dark" onclick="red(3)">
+                    Today  Demande  Bad : @ViewBag.todaybad  >
+
+                </button>
+            </div>
+
+            <div class="col">
+                <button class="btn btn-outline-dark" onclick="red(4)">
+                    Totale Demande : @ViewBag.all >
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+
+
+
+            <table id="myTable" class="table table-striped  " data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Date Creation
+                        </th>
+                        <th>
+                            Resolu
+                        </th>
+                        <th>
+                            USER
+                        </th>
+                           <th>
+                           adresse
+                        </th>
+                        <th>
+                            Livreur
+                        </th>
+
+
+                       
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nom)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateCreation)
+                            </td>
+                            <td>
+                                @if (item.Resolu)
+                                {
+                                    <span class="badge badge-success">GOOD</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">BAD</span>
+                                }
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.UserName)
+                            </td>
+                             <td>
+                                @Html.DisplayFor(modelItem => item.User.Adresse)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Livreur.User.UserName)
+                            </td>
+
+
+                           
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+
+<script>
+
+             $(document).ready( function () {
+
+        $('#myTable').DataTable();
+    } );
+
+    function red(a) {
+
+             window.location.href = "/livreur/DemandeRamassage?etat=" + encodeURIComponent(a) ;
+
+    }
+</script>
+
+
+

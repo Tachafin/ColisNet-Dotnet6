@@ -1,0 +1,151 @@
+﻿@model List<Facture>
+ @{
+    ViewData["Title"] = "Client Facture";
+
+
+
+}
+<h1 class="mt-2">
+    Liste Factures <span class="btn btn-outline-primary ">@Model.Count()</span>
+</h1>
+
+
+<div class="card mb-4" id="placehere">
+
+    <div class="card-body">
+        @{
+            if (Model != null)
+            {
+                <div class="table-responsive">
+
+                    <table id="myTable" class="table" data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Nom
+                                </th>
+                                <th>
+                                    Date Creation
+                                </th>
+                                <th>
+                                    Totale
+                                </th>
+                                <th>
+                                    Frais
+                                </th>
+                                <th>
+                                    Net
+                                </th>
+                                <th>
+                                    Type
+                                </th>
+                                <th>
+                                    Statut
+                                </th>
+                                 <th>
+                                    Voir Recu 
+                                </th>
+
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nom)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateCreation)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Total)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Frais)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Net)
+                                    </td>
+                                    <td>
+                                        @{
+                                            if (item.Type == "Livre")
+                                            {
+                                                <h6>  <a class="badge badge-success ">@Html.DisplayFor(modelItem => item.Type)</a> </h6>
+                                            }
+                                            else if (item.Type == "En cours")
+                                            {
+                                                <h6>  <a class="badge bg-secondary ">@Html.DisplayFor(modelItem => item.Type)</a> </h6>
+                                            }
+                                            else if (item.Type == "Retourne")
+                                            {
+                                                <h6>  <a class="badge bg-danger ">@Html.DisplayFor(modelItem => item.Type)</a> </h6>
+                                            }
+                                            else if (item.Type == "Envoye")
+                                            {
+                                                <h6>  <a class="badge bg-warning text-dark ">@Html.DisplayFor(modelItem => item.Type)</a> </h6>
+                                            }
+                                            else if (item.Type == "Annule")
+                                            {
+                                                <h6>  <a class="badge bg-danger ">@Html.DisplayFor(modelItem => item.Type)</a> </h6>
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            if (item.Statut == "Non Paye")
+                                            {
+                                                <h6>  <a class="badge badge-danger text-white ">@Html.DisplayFor(modelItem => item.Statut)</a> </h6>
+                                            }
+                                            else if (item.Statut == "Paye")
+                                            {
+                                                <h6>  <a class="badge badge-success text-white ">@Html.DisplayFor(modelItem => item.Statut)</a> </h6>
+                                            }
+                                        }
+                                    </td>
+                                     <td>
+                                        <a target="_blank" asp-action="Print" class="btn btn-outline-primary" asp-route-id="@item.Id"> <i class="bi bi-card-checklist"></i> Facture </a> | 
+                                          <a target="_blank" asp-action="DownloadRecu" class="btn btn-outline-primary" asp-route-fileName="@item.Recu_Paiement.Chemin"> <i class="bi bi-arrow-down-circle"></i> Recu Paiement </a>
+
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" class="btn btn-outline-primary" asp-route-id="@item.Id">Show ></a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <h2>No FACTURE</h2>
+            }
+        }
+
+
+    </div>
+</div>
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+@*@section DtColis{*@
+<script>
+
+             $(document).ready( function () {
+
+        $('#myTable').DataTable();
+    } );
+
+</script>

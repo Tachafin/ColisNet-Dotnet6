@@ -1,0 +1,168 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutLivreur.cshtml";
+}
+
+<h2 class="mt-2">
+  Espace Livreur
+</h2>
+<div class="row ">
+
+    <div class="col-md-6 mb-2">
+        <div class="card p-2">
+            <div class="row">
+                <h3 class="text-lg-center">
+                    Colis ACTIVE
+                </h3>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="height: 50px; background-color:#ea8c55 ">
+                        <span class="text-md-center text-white mt-2">En Cours : @ViewBag.ColisEnCours </span>
+                    </div>
+
+
+                </div>
+                <div class="col">
+                    <div class="card" style="height: 50px; background-color:#226f54 ">
+                        <span class="text-md-center text-white mt-2">Livre : @ViewBag.ColisLivre </span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="height: 50px; background-color:#81171b">
+                        <span class="text-md-center text-white mt-2"> Retourne : @ViewBag.ColisRetourne </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card p-2">
+
+            <h3 class="text-lg-center">
+                Etat Liste Ramassage ACTIVE
+            </h3>
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="height: 50px; background-color:#ea8c55 ">
+                        <span class="text-md-center text-white mt-2">En Cours : @ViewBag.ListeRamassageEncours </span>
+                    </div>
+
+
+                </div>
+                <div class="col">
+                    <div class="card" style="height: 50px; background-color:#226f54 ">
+                        <span class="text-md-center text-white mt-2">Livre :  @ViewBag.ListeRamassageLivre </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class=row>
+    <div class=col>
+        <div class="card mt-2">
+            <div class="card-header">
+                <div class="card-title text-center">
+                    <h2>   Colis Recent </h2>
+                </div>
+
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class=" table ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name Colis
+                                </th>
+                                <th>
+                                    Name Client
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                                <th>
+                                    Ville
+                                </th>
+                                <th>
+                                    Adresse
+                                </th>
+                                <th>
+                                    Etat
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Top5Colis)
+                            {
+                                <tr>
+                                    <td>@item.Numero_Colis</td>
+                                    <td> @item.Client.NomComplet</td>
+                                    <td> @item.Prix  </td>
+                                    <td> @item.Client.Ville.Name </td>
+                                    <td> @item.Client.adresse </td>
+                                    @{
+                                        if(@item.Etat=="Livre")
+                                    {
+                                       <td class="badge badge-success"> @item.Etat</td>
+                                    }
+                                   } 
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class=col>
+        <div class="card  mt-2">
+            <div class="card-header">
+                <div class="card-title text-center">
+                    <h2>   Liste Ramassage Recent </h2>
+                </div>
+
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class=" table ">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Ville</td>
+                                <td>Nb Colis</td>
+                                <td>Etat</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Top5Liste)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td> @item.Ville.Name </td>
+                                    <td> @item.Colis.Count  </td>
+
+                                    <td> @item.Etat</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

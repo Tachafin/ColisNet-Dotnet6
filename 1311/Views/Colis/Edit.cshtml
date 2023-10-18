@@ -1,0 +1,71 @@
+﻿@model _1311.Models.Colis
+
+@{
+    ViewData["Title"] = "Edit Colis";
+}
+<h1 class="mt-2">Editer un colis</h1>
+
+
+<hr />
+
+<div class="card shadow p-3">
+
+    <form asp-action="update" asp-controller="Colis" method="post">
+
+        <input asp-for="id" hidden />
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Client.NomComplet"></label>
+                    <input type="text" class="form-control" asp-for="Client.NomComplet" />
+
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Client.Telephone"></label>
+                    <input type="text" class="form-control" asp-for="Client.Telephone" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Client.Ville"></label>
+                    <select asp-for="Client.VilleId" class=" form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        @foreach (var item in ViewBag.ListVille)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Client.adresse"></label>
+                    <input type="text" class="form-control" asp-for="Client.adresse" />
+                    <span class="small text-danger" asp-validation-for="Client.adresse"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Prix"></label>
+                    <input type="text" class="form-control" asp-for="Prix" />
+                    <span class="small text-danger" asp-validation-for="Prix"></span>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <input type="submit" class="btn text-white" style="background-color:#001f3f; " value="UPDATE" />
+            <a class="btn btn-dark" asp-action="colisenattente">Back to List</a>
+        </div>
+
+
+    </form>
+
+
+
+</div>

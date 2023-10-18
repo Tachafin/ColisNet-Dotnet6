@@ -1,0 +1,58 @@
+﻿@model Reclamation
+
+@{
+    ViewData["Title"] = " Details Reclamation";
+}
+<div class="card mt-3">
+    <div class="card-header text-center">
+        <h1> @Model.Name</h1>
+    </div>
+  
+
+    <div class=" card-body">
+        @{
+            if (Model.Statut)
+            {
+                <div class="text-center text-success">
+                    Bien Resolu
+                </div>
+                <div>
+                    Sujet :    @Model.Sujet <br />
+
+                    Message : @Model.Message
+                </div>
+                <br />
+                <div class="text-center text-success">
+                    Reponse : @Model.Reponse
+                </div>
+
+            }
+            else
+            {
+                <div class="text-center text-danger">
+                    Pas Encore Resolu
+                </div>
+                <hr />
+                <div class="text-uppercase text-center" >
+                    Sujet :    @Model.Sujet <br />
+                    <hr />
+                    Message : @Model.Message
+                </div>
+            }
+
+        }
+
+
+
+
+
+
+    </div>
+    <div class="card-footer">
+        <a asp-action="index" class="btn btn-dark"   >
+            Back to Reclamation
+        </a>
+    </div>
+</div>
+
+

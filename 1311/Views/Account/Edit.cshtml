@@ -1,0 +1,152 @@
+﻿@model EditAccountViewModel
+
+<div class="row mt-3">
+    <div class="col-8">
+        <div class="card shadow @*p-3*@ mb-5 bg-white rounded">
+            <div class="card-header ">
+                <span class="text-center"> Information Personnelle</span>
+            </div>
+            <div class="card-body">
+                <form asp-action="edit" asp-controller="Account" method="post">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="FirstName"></label>
+                                    <input disabled type="text" class="form-control" asp-for="FirstName" />
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="LastName"></label>
+                                    <input disabled type="text" class="form-control" asp-for="LastName" />
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumber"></label>
+                                    <input disabled type="text" class="form-control" asp-for="PhoneNumber" />
+                                    <span class="small text-danger" asp-validation-for="PhoneNumber"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @* Partie 2*@
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input disabled type="text" class="form-control" asp-for="Email" />
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="VilleName"></label>
+                                    <input disabled type="text" class="form-control" asp-for="VilleName" />
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Adresse"></label>
+                                    <input disabled type="text" class="form-control" asp-for="Adresse" />
+                                    <span class="small text-danger" asp-validation-for="Adresse"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @* fin partie 2*@
+                    @*                      Partie 3 *@
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="BoutiqueName"></label>
+                                    <input disabled type="text" class="form-control" asp-for="BoutiqueName" />
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="BankName"></label>
+                                    <input disabled type="text" class="form-control" asp-for="BankName" />
+
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="RIB"></label>
+                                    <input disabled type="text" class="form-control" asp-for="RIB" />
+                                    <span class="small text-danger" asp-validation-for="RIB"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*     fin partie 3 *@
+                    @* partie 4 *@
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="RegistreCommerce"></label>
+                                    <input disabled type="text" class="form-control" asp-for="FirstName" />
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    @*  fin partie 4*@
+
+
+
+
+                    <br\>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+
+
+        <div class="card">
+            <div class="card-header">
+                <h3>
+                    Password
+                </h3>
+            </div>
+            <div class="card-body">
+                <form asp-action="edit" asp-controller="Account" method="post">
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input type="password" class="form-control" asp-for="Password" />
+                        <span class="small text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input type="password" class="form-control" asp-for="ConfirmPassword" />
+                        <span class="small text-danger" asp-validation-for="ConfirmPassword"></span>
+                    </div>
+
+
+                    <br\>
+                        <input type="submit" class="btn btn-primary" value="Enregistrer" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
