@@ -4,11 +4,16 @@
     ViewData["Title"] = " Details BonsLivraison";
 }
 
+<div class="row mt-2">
+    <div class="col ">
+        <span class="display-5">
+        @Html.Partial("HTML/_BackButton", "/backend/admin/category/")
+            Bons Livraison    @ViewBag.BonsId 
+        </span>
+    </div>
 
-
+</div>
 <div class="container  mt-4">
-
-
 
     <div class="col-md-12 text-center">
         <a class="btn btn-info  " target="_blank" asp-controller="bonslivraison" asp-route-id="@Context.Request.RouteValues["id"]" asp-action="Print">
@@ -147,35 +152,8 @@
 <script type="text/javascript">
 
 
-            function RemoveColis(a,b) {
-           val1 = a;
-           val2 = b;
-
-        var data = $("#studenteForm").serialize();
-        console.log(data);
-
-
-        $.ajax({
-            type: 'GET',
-            url: "/bonslivraison/"+a+"/Supprimer/"+b,
-            data: {id: val1, tr: val2},
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-
-            success: function (result) {
-                  ShowHint(val2);
-
-
-            },
-            error: function () {
-                alert('Failed to receive the Data');
-                console.log('Failed ');
-            }
-        })
-    }
-
-
-    function submitStudent(a,b) {
-          val1 = a;
+    function RemoveColis(a, b) {
+        val1 = a;
         val2 = b;
 
         var data = $("#studenteForm").serialize();
@@ -184,12 +162,39 @@
 
         $.ajax({
             type: 'GET',
-            url: "/bonslivraison/"+a+"/ajouter/"+b,
-            data: {id: val1, tr: val2},
+            url: "/bonslivraison/" + a + "/Supprimer/" + b,
+            data: { id: val1, tr: val2 },
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
 
             success: function (result) {
-                  ShowHint(val2);
+                ShowHint(val2);
+
+
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+    function submitStudent(a, b) {
+        val1 = a;
+        val2 = b;
+
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/bonslivraison/" + a + "/ajouter/" + b,
+            data: { id: val1, tr: val2 },
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+
+            success: function (result) {
+                ShowHint(val2);
 
             },
             error: function () {
@@ -201,14 +206,14 @@
 
 
 
-    function ShowHint(ids){
-        $(document).ready(function(){
+    function ShowHint(ids) {
+        $(document).ready(function () {
             $.ajax({
-                url:"/DetailsTable/"+ids,
-                data:{xx:ids},
-                method:'GET',
-                cache:false,
-                success: function(response){
+                url: "/DetailsTable/" + ids,
+                data: { xx: ids },
+                method: 'GET',
+                cache: false,
+                success: function (response) {
                     $('#placehere').html(response);
                 }
 

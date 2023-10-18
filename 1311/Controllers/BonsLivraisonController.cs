@@ -104,7 +104,7 @@ namespace _1311.Controllers
         {
             string Userid = await _User.GetUserIdAsync(User.Identity.Name);
             var bonss = _BonsLivraison.Get(id, Userid);
-
+            ViewBag.BonsId = bonss.id;
             if (bonss is null)
             {
                 return RedirectToAction("Index");
