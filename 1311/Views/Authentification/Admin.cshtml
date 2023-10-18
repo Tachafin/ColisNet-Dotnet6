@@ -23,32 +23,30 @@
     </style>
 </head>
 
-<div class="d-flex justify-content-center mt-3">
-
-
-    <div class="card w-50  border mt-3  ">
-@* 
-        <div class="d-flex justify-content-center mt-3">
-
-           
-
-        </div> *@
+<div class="d-flex justify-content-center mt-3 mb-2">
+    <div class="card w-75 w-md-50 border mt-3">
         <div class="card-body">
-            <center>     <span class="h-50">   <i class="bi bi-person-circle"></i> ESPACE LOGIN FOR <strong>ADMIN</strong> </span> </center>
+            <div class="text-center mb-4">
+                <i class="bi bi-person-circle"></i>
+                <span class="h-50"> ESPACE LOGIN FOR <strong>ADMIN</strong> </span>
+            </div>
             <hr />
-            <div class="d-flex justify-content-center mt-3">
+
+            <div class="d-flex justify-content-center ">
                 <img style="width:225px;height:250px" src="/img/logo.png" />
             </div>
-            <div class="row d-flex justify-content-center">
-                Authentification
 
-            </div>
-            <div class="row d-flex justify-content-center">
-                Entrez votre identifiant et votre mot de passe
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    Authentification
+                </div>
+                <div class="col-md-12 text-center">
+                    Entrez votre identifiant et votre mot de passe
+                </div>
             </div>
 
-            <div class="container">
-                <form asp-action="admin" asp-controller="Authentification" method="post" class="mt-5">
+            <div class="container mt-3">
+                <form asp-action="admin" asp-controller="Authentification" method="post">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -72,61 +70,22 @@
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <div class="form-group text-center">
-                                <input type="submit" class="btn btn-dark w-50 mt-2" value="LOGIN" />
+                                <input type="submit" class="btn btn-dark w-100 mt-2" value="LOGIN" />
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-12 text-center">
-                        @{
-                            if (@ViewBag.error != null)
-                            {
-                                <hr>
-                                <h2 class="text-danger">@ViewBag.error</h2>
-                            }
+                    <div class="col-md-12 text-center mt-3">
+                        @if (@ViewBag.error != null)
+                        {
+                            <hr>
+                            <h2 class="text-danger">@ViewBag.error</h2>
                         }
                     </div>
                     <div asp-validation-summary="All" class="text-danger"></div>
                 </form>
             </div>
-
-
         </div>
-        @* <form asp-action="admin" asp-controller="Authentification" method="post">
-
-
-            <div class="ml-5 mr-5">
-                <div class="form-group">
-                    <label asp-for="Email" class="w-25"></label>
-                    <input type="text" class="form-control w-50" asp-for="Email" />
-                    <span class="small text-danger" asp-validation-for="Email"></span>
-
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Password" class="w-50"></label>
-                    <input type="password" class="form-control w-50" asp-for="Password" />
-                    <span class="small text-danger " asp-validation-for="Password"></span>
-
-                </div>
-
-            </div>
-
-            <br\>
-            <div class="m-5">
-                  <input type="submit" class="btn btn-info  w-25 " value="LOGIN" />
-            </div>
-              
-                <div class="col-md-12 text-center">
-                    @{
-                        @if (@ViewBag.error != null)
-                        {
-                            <hr>
-                            <h2 class=" text-danger  ">@ViewBag.error</h2>
-                        }
-                    }
-                </div>
-                <div asp-validation-summary="All" class="text-danger"></div>
-        </form> *@
+       
     </div>
 </div>
