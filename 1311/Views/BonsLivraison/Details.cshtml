@@ -5,23 +5,19 @@
 }
 
 <div class="row mt-2">
-    <div class="col ">
+    <div class="col-6">
         <span class="display-5">
-        @Html.Partial("HTML/_BackButton", "/backend/admin/category/")
-            Bons Livraison    @ViewBag.BonsId 
+            @Html.Partial("HTML/_BackButton", "/User/BonsLivraison")
+            Bons Livraison @ViewBag.BonsId
         </span>
     </div>
-
-</div>
-<div class="container  mt-4">
-
-    <div class="col-md-12 text-center">
-        <a class="btn btn-info  " target="_blank" asp-controller="bonslivraison" asp-route-id="@Context.Request.RouteValues["id"]" asp-action="Print">
-            <i class="bi bi-arrow-down-circle mr-1"></i>    Print Bons Livraison  PDF
+    <div class="col-6 text-right">
+        <a class="btn btn-info btn-lg" target="_blank" asp-controller="bonslivraison" asp-route-id="@Context.Request.RouteValues["id"]" asp-action="Print">
+            <i class="bi bi-arrow-down-circle mr-1"></i> Print Bons Livraison PDF
         </a>
-
     </div>
 </div>
+
 
 
 <hr />

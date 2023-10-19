@@ -1,7 +1,11 @@
 ﻿@model CreateDemandeViewModel
 <h2 class="mt-2">
-    Ajouter de demande Ramassage
+    <span class="display-5">
+        @Html.Partial("HTML/_BackButton", "/User/Demande")
+        Ajouter de demande Ramassage
+    </span> 
 </h2>
+<hr />
 <div class="card">
     <div class="card-body m-2">
         <form method="post" asp-action="create">

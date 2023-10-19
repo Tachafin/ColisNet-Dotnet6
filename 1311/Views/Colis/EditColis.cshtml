@@ -8,14 +8,31 @@
 
 <script src="https://unpkg.com/zxing/library@0.17.1"></script>
 
+<div class="row  mt-2">
+    <div class="col-6">
+        <span class="display-5">
+            @Html.Partial("HTML/_BackButton", "/Admin/Colis")
+            Colis @Model.id
+        </span>
+    </div>
+  
+</div>
+<hr />
 
-<div class="card m-3">
-    <div class="card-header display-5 text-center bg-white">
+
+
+<div class="card ">
+   @*  <div class="card-header display-5 text-center bg-white">
         Colis @Model.id
         <img src="@Model.CodeBarre.Chemin" alt="Barcode Image">
-    </div>
+    </div> *@
     <div class="card-body">
-
+        <div class="row">
+            <div class="col-3">
+                <img src="@Model.CodeBarre.Chemin" alt="Barcode Image">
+            </div>
+          
+        </div>
         <div class="row">
             <div class="col">
 
@@ -237,7 +254,7 @@
     </div>
 </div>
 <div>
-    <a class="btn btn-dark m-3" asp-action="allcolis">Back to List</a>
+   
 </div>
 <div class="modal" tabindex="-1" role="dialog" id="pop">
     <div class="modal-dialog modal-xl" role="document">

@@ -3,56 +3,61 @@
 @{
     ViewData["Title"] = " Details Reclamation";
 }
+<div class="row mt-2">
+    <div class="col-6">
+        <span class="display-5">
+            @Html.Partial("HTML/_BackButton", "/User/Reclamation")
+           Reclamation @Model.Id
+        </span>
+    </div>
+    
+</div>
+<hr />
 <div class="card mt-3">
-    <div class="card-header text-center">
-        <h1> @Model.Name</h1>
-    </div>
-  
 
-    <div class=" card-body">
-        @{
-            if (Model.Statut)
-            {
-                <div class="text-center text-success">
-                    Bien Resolu
-                </div>
-                <div>
-                    Sujet :    @Model.Sujet <br />
 
-                    Message : @Model.Message
-                </div>
-                <br />
-                <div class="text-center text-success">
-                    Reponse : @Model.Reponse
-                </div>
 
-            }
-            else
-            {
-                <div class="text-center text-danger">
-                    Pas Encore Resolu
-                </div>
-                <hr />
-                <div class="text-uppercase text-center" >
-                    Sujet :    @Model.Sujet <br />
-                    <hr />
-                    Message : @Model.Message
-                </div>
-            }
-
+    <div class="card-body">
+        @if (Model.Statut)
+        {
+            <div class="text-center text-success">
+                Bien Resolu
+            </div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Sujet</th>
+                    <td>@Model.Sujet</td>
+                </tr>
+                <tr>
+                    <th>Message</th>
+                    <td>@Model.Message</td>
+                </tr>
+            </table>
+            <div class="text-center text-success">
+                <strong>Reponse:</strong> @Model.Reponse
+            </div>
         }
-
-
-
-
-
-
+        else
+        {
+            <div class="text-center text-danger">
+                Pas Encore Resolu
+            </div>
+            <hr />
+            <table class="table table-bordered">
+                <tr>
+                    <th>Sujet</th>
+                    <td>@Model.Sujet</td>
+                </tr>
+                <tr>
+                    <th>Message</th>
+                    <td>@Model.Message</td>
+                </tr>
+            </table>
+        }
     </div>
-    <div class="card-footer">
-        <a asp-action="index" class="btn btn-dark"   >
-            Back to Reclamation
-        </a>
-    </div>
+
+
+   
 </div>
 
 

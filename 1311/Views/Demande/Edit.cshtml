@@ -5,12 +5,18 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
 }
+<div class="row mt-2">
+    <div class="col-6">
+        <span class="display-5">
+            @Html.Partial("HTML/_BackButton", "/Admin/Demande")
+            Demande ramassage @Context.Request.RouteValues["id"]
+        </span>
+    </div>
+   
+</div>
 <div class="card mt-2">
 
-    <div class="card-header bg-white mt-3 mb-3">
-        <h3>  Edit Demande de ramassage</h3>
-    </div>
-
+   
 
     <div class="card-body">
 
@@ -51,7 +57,7 @@
 
 
                     <input type="submit" class="btn btn-outline-primary" value="Sauvegarder" />
-                    <a class="btn btn-dark ml-3" asp-action="All">Retourner au Liste</a>
+                   
                 </form>
             </div>
         </div>
