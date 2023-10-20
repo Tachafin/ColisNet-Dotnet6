@@ -1,16 +1,22 @@
 ﻿@model _1311.Models.Ville
 
     @{
-        ViewData["Title"] = "create";
+        ViewData["Title"] = "Creation du ville";
     }
-
+<div class="row mt-2">
+    <div class="col-6">
+        <span class="display-5">
+            @Html.Partial("HTML/_BackButton", "/Admin/ville")
+           Creation Ville
+        </span>
+    </div>
+   
+</div>
    
     <hr />
 
     <div class="card">
-        <div class="card-header">
-             <h1>Create Ville</h1>
-        </div>
+      
         <div class="card-body">
             <div class="row">
         <div class="col-md-4">
@@ -36,7 +42,4 @@
 
     
 
-    <div>
-        <a asp-action="All">Back to List</a>
-    </div>
-
+    

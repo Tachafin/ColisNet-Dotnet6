@@ -16,11 +16,15 @@
 
     <div class="d-flex justify-content-between align-items-center my-2 ">
 
-        <h1 style="color:#001f3f;"> Detail @Model.fct.Nom </h1>
-        <a class="btn btn-outline-primary mb-2" asp-action="Print" asp-controller="Facture" asp-route-id="@Context.Request.RouteValues["id"]" target="_blank">
+        <span class="display-5">
+            @Html.Partial("HTML/_BackButton", "/Admin/facture")
+            Detail @Model.fct.Nom
+        </span> 
+        <a class="btn btn-outline-primary btn-lg mb-2" asp-action="Print" asp-controller="Facture" asp-route-id="@Context.Request.RouteValues["id"]" target="_blank">
             Telecharger  pdf <i class="bi bi-arrow-down-circle-fill"></i>
         </a>
     </div>
+    <hr />
     <div class="card mt-2">
 
 
