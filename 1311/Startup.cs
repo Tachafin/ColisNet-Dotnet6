@@ -57,7 +57,7 @@ namespace _1311
             services.ConfigureApplicationCookie(
                 config =>
                 {
-                    config.LoginPath = "/authentification/client";
+                    config.LoginPath = "/authentification/admin";
 
                 }
 
