@@ -48,6 +48,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Report.Viewer" Version="11.0.0" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
