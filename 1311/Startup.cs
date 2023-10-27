@@ -57,7 +57,7 @@ namespace _1311
             services.ConfigureApplicationCookie(
                 config =>
                 {
-                    config.LoginPath = "/account/register";
+                    config.LoginPath = "/admin/colis";
 
                 }
 

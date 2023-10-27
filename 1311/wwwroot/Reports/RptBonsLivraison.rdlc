@@ -549,7 +549,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>0.27517cm</Top>
+              <Top>0.59267cm</Top>
               <Left>14.92995cm</Left>
               <Height>0.6cm</Height>
               <Width>4.23567cm</Width>
@@ -580,8 +580,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox15</rd:DefaultName>
-              <Top>0.27517cm</Top>
-              <Left>12.86495cm</Left>
+              <Top>0.59267cm</Top>
+              <Left>12.86496cm</Left>
               <Height>0.6cm</Height>
               <Width>1.20883cm</Width>
               <ZIndex>1</ZIndex>
@@ -716,7 +716,7 @@
               <rd:DefaultName>Boutique</rd:DefaultName>
               <Top>2.36361cm</Top>
               <Left>14.92995cm</Left>
-              <Height>0.95983cm</Height>
+              <Height>0.6cm</Height>
               <Width>4.23567cm</Width>
               <ZIndex>5</ZIndex>
               <Style>

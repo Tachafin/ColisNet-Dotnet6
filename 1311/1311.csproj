@@ -16,23 +16,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\Reports\Facture.rdlc" />
-    <Content Remove="wwwroot\Reports\Liste.rdlc" />
-    <Content Remove="wwwroot\Reports\RptBonsLivraison.rdlc" />
-    <Content Remove="wwwroot\Reports\Sticker.rdlc" />
-    <Content Remove="wwwroot\Reports\stickers.rdlc" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="wwwroot\Reports\Liste.rdlc" />
-    <EmbeddedResource Include="wwwroot\Reports\Facture.rdlc" />
-    <EmbeddedResource Include="wwwroot\Reports\RptBonsLivraison.rdlc" />
-    <EmbeddedResource Include="wwwroot\Reports\Sticker.rdlc" />
-    <EmbeddedResource Include="wwwroot\Reports\stickers.rdlc" />
-	  
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AdminLTE" Version="2.4.0" />
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
@@ -48,7 +31,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Report.Viewer" Version="11.0.0" />
+
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
