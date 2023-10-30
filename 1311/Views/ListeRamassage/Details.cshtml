@@ -21,50 +21,53 @@
 <div class="row">
     <div class="col-6">
 
-   
 
-    <form asp-action="EditEtat" method="post">
-        <table class="table table-bordered mt-3 ">
-            <tr>
-                <th>Livreur Name</th>
-                <td>@Model.listRmassage.Livreur.User.UserName</td>
-            </tr>
-            <tr>
-                <th>Ville Name</th>
-                <td>@Model.listRmassage.Ville.Name</td>
-            </tr>
-            <!-- Additional row for form elements -->
-            <tr>
-                <th>Etat</th>
-                <td>
 
-                    <input type="hidden" asp-for="listRmassage.Id" />
-                    <div class="form-group">
+        <form asp-action="EditEtat" method="post">
+            <table class="table table-bordered mt-3 ">
+                <tr>
+                    <th>Livreur Name</th>
+                    @if (Model.listRmassage != null && Model.listRmassage.Livreur != null && Model.listRmassage.Livreur.User != null)
+                    {
+                        <td>@Model.listRmassage.Livreur.User.UserName</td>
+                    }
+                </tr>
+                <tr>
+                    <th>Ville Name</th>
+                    <td>@Model.listRmassage.Ville.Name</td>
+                </tr>
+                <!-- Additional row for form elements -->
+                <tr>
+                    <th>Etat</th>
+                    <td>
 
-                        <div class="col-md-3">
-                            <select asp-for="listRmassage.Etat" class="custom-select" id="selectx">
-                                <option value="Envoye">Envoye</option>
-                                <option value="En cours">En cours</option>
-                                <option value="Completed">Completed</option>
-                            </select>
+                        <input type="hidden" asp-for="listRmassage.Id" />
+                        <div class="form-group">
+
+                            <div class="col-md-3">
+                                <select asp-for="listRmassage.Etat" class="custom-select" id="selectx">
+                                    <option value="Envoye">Envoye</option>
+                                    <option value="En cours">En cours</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Your form buttons -->
+                        <!-- Your form buttons -->
 
 
-                </td>
-            </tr>
-        </table>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success">
-                Submit
-            </button>
-            <a class="btn btn-dark" asp-action="Index">Back to List</a>
-            <a class="btn btn-dark" target="_blank" asp-action="print" asp-controller="ListeRamassage" asp-route-id="@Context.Request.RouteValues["id"]">
-                <i class="bi bi-printer"></i>
-            </a>
-        </div>
-    </form>
+                    </td>
+                </tr>
+            </table>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">
+                    Submit
+                </button>
+                <a class="btn btn-dark" asp-action="Index">Back to List</a>
+                <a class="btn btn-dark" target="_blank" asp-action="print" asp-controller="ListeRamassage" asp-route-id="@Context.Request.RouteValues["id"]">
+                    <i class="bi bi-printer"></i>
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 

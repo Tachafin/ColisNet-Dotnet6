@@ -199,7 +199,7 @@ namespace _1311.Models.Repository.IColisRepositorys
            .Include(c => c.Client)
            .Include(c => c.Client.Ville)
            .Where(c => c.UserId == userid)
-           .Where(c => c.BonsLivraisonId == null)
+           //.Where(c => c.BonsLivraisonId == null)
            .Where(c => c.Etat == "En cours")
            .ToList();
             return all;

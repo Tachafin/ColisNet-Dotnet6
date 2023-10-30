@@ -98,7 +98,7 @@ namespace _1311.Controllers
             model.Password = userfinal.PasswordHash;
             model.PhoneNumber = userfinal.PhoneNumber;
             model.Adresse = userfinal.Adresse;
-            if (!User.IsInRole("Livreur"))
+            if (User.IsInRole("User"))
             {
                 model.BoutiqueName = userfinal.Boutique.Name;
                 model.BankName = userfinal.Boutique.Bank.Name;
@@ -106,6 +106,14 @@ namespace _1311.Controllers
                 model.RegistreCommerce = userfinal.Boutique.RegistreCommerce;
                 model.VilleName = userfinal.Boutique.Ville.Id;
             }
+            //if (!User.IsInRole("Livreur") || !User.IsInRole("Admin") || !User.IsInRole("Super Admin"))
+            //{
+            //    model.BoutiqueName = userfinal.Boutique.Name;
+            //    model.BankName = userfinal.Boutique.Bank.Name;
+            //    model.RIB = userfinal.Boutique.Bank.Rib;
+            //    model.RegistreCommerce = userfinal.Boutique.RegistreCommerce;
+            //    model.VilleName = userfinal.Boutique.Ville.Id;
+            //}
 
             return View(model);
 

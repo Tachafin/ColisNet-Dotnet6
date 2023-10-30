@@ -1,5 +1,5 @@
 ﻿@model List<Facture>
- @{
+@{
     ViewData["Title"] = "Client Facture";
 
 
@@ -45,8 +45,8 @@
                                 <th>
                                     Statut
                                 </th>
-                                 <th>
-                                    Voir Recu 
+                                <th>
+                                    Voir Recu
                                 </th>
 
                                 <th>Actions</th>
@@ -114,10 +114,17 @@
                                             }
                                         }
                                     </td>
-                                     <td>
-                                        <a target="_blank" asp-action="Print" class="btn btn-outline-primary" asp-route-id="@item.Id"> <i class="bi bi-card-checklist"></i> Facture </a> | 
-                                          <a target="_blank" asp-action="DownloadRecu" class="btn btn-outline-primary" asp-route-fileName="@item.Recu_Paiement.Chemin"> <i class="bi bi-arrow-down-circle"></i> Recu Paiement </a>
+                                    <td>
+                                        <a target="_blank" asp-action="Print" class="btn btn-outline-primary" asp-route-id="@item.Id"> <i class="bi bi-card-checklist"></i> Facture </a> |
+                                        @if (item.Recu_Paiement?.Chemin == null)
+                                        {
+                                            <a target="_blank" class="btn btn-outline-primary">  <i class="bi bi-arrow-down-circle"></i> Recu Paiement </a>
 
+                                        }
+                                        else
+                                        {
+                                            <a target="_blank" asp-action="DownloadRecu" class="btn btn-outline-primary" asp-route-fileName="@item.Recu_Paiement?.Chemin"> <i class="bi bi-arrow-down-circle"></i> Recu Paiement </a>
+                                        }
                                     </td>
                                     <td>
                                         <a asp-action="Details" class="btn btn-outline-primary" asp-route-id="@item.Id">Show ></a>
@@ -143,9 +150,9 @@
 @*@section DtColis{*@
 <script>
 
-             $(document).ready( function () {
+    $(document).ready(function () {
 
         $('#myTable').DataTable();
-    } );
+    });
 
 </script>
